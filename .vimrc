@@ -1,3 +1,7 @@
+
+call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
+
 set runtimepath=~/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,~/.vim/after
 
 " REQUIRED. This makes vim invoke Latex-Suite when you open a tex file.
@@ -33,7 +37,7 @@ set background=dark
 syntax enable
 
 set modeline
-set foldmethod=indent
+set foldmethod=syntax
 set nofen
 set laststatus=2
 
@@ -121,12 +125,26 @@ fu! NumPatternsInString(str, pat)
     return num
 endf
 
+let g:tagbar_usearrows = 1
+nnoremap <leader>l :TagbarToggle<CR>
+
 nnoremap <silent> <LocalLeader><cr> :Validate<cr>
 nnoremap <silent> <LocalLeader>c :JavaCorrect<cr>
 " map <buffer> <LocalLeader>bc ^y$:r!echo 'scale=6; "'\|bc  "
 map <buffer> <LocalLeader>bc ^y$:r!echo 'scale=6; <C-R>0'\|bc -l<cr>
 
+set switchbuf=useopen,usetab,split
+
 set tags=~/.tags
 set complete=.,w,b,u,t,i
 
-set statusline=%<\%f\ %y%m%r\ %=\ [%{WordCount()}]\ \ %l,%c%V\ \ \ \ \ \ \ \ \ \ %P
+noremap <S-W> <C-w><Up>
+noremap <S-S> <C-w><Down>
+noremap <S-A> <C-w><Left>
+noremap <S-D> <C-w><Right>
+
+noremap <leader>o <Esc>:CommandT<CR>
+noremap <leader>O <Esc>:CommandTFlush<CR>
+noremap <leader>m <Esc>:CommandTBuffer<CR>
+
+set statusline=%<\%f\ %y%m%r\ %{fugitive#statusline()}\ %=\ [%{WordCount()}]\ \ %l,%c%V\ \ \ \ \ \ \ \ \ \ %P
