@@ -77,7 +77,7 @@ color0 467f77 		# Light blue
 TEXT
 ${font Liberation Mono:bold:size=10}${color0}${goto 0}Kernel: ${color grey60}$kernel
 ${color0}${goto 0}Uptime: ${color grey60}$uptime
-${color0}${goto 0}Repo updates available: ${color grey60}${execi 3600 echo n | sudo aura -Su | grep "=>" | wc -l}
+${color0}${goto 0}Repo updates available: ${color grey60}${execi 3600 echo n | sudo aura -Qu | sed "1d" | wc -l}
 ${color0}${goto 0}AUR updates available: ${color grey60}${execi 3600 echo n | sudo aura -Au | grep "=>" | wc -l}
 ${color0}${goto 0}Time local: ${color grey60}${execi 30 date +"%H:%M"}
 ${goto 40}${color0}Tokyo: ${color grey60}${execi 30 TZ=Asia/Tokyo date +"%H:%M"}
