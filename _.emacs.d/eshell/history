@@ -1,0 +1,128 @@
+javac Start.java
+javac Start.java
+javac Start.java
+javac Start.java
+javac Start.java
+javac Start.java
+javac Start.java
+javac Start.java
+javac Start.java
+javac Start.java
+javac Start.java
+javac Start.java
+javac Start.java
+javac Start.java
+javac Start.java
+javac Start.java
+javac Start.java
+javac Start.java
+javac Start.java
+javac uk/org/dulwich/Chemistry.java
+javac uk/org/dulwich/SubMenu.java
+java Start
+java uk.org.dulwich.Chemistry
+java Start
+java uk.org.dulwich.Chemistry
+java Start
+javac Start.java
+javac uk/org/dulwich/Chemistry.java
+javac uk/org/dulwich/Chemistry/OrgSyn.java 
+mv uk/org/dulwich/Chemistry uk/org/dulwich/chemistry
+javac uk/org/dulwich/chemistry/OrgSyn.java 
+java uk.org.dulwich.chemistry.OrgSyn
+javac *
+ls **/*.java
+javac **/*.java
+javac **/*.java
+javac **/*.java
+java Start
+javac **/*.java
+java Start
+jar
+jarify
+./jarify
+./jarify
+./jarify
+./jarify
+./jarify
+./jarify
+./jarify
+java -jar Revision.jar 
+./jarify
+java -jar Revision.jar 
+./jarify
+java -jar Revision.jar 
+./jarify
+./jarify
+./jarify
+java -jar Revision.jar 
+./jarify && java -jar Revision.jar 
+gvim & disown
+disown
+jobs
+gvim & disown
+ls
+exit
+ls
+racket bot.rkt 
+racket bot.rkt 
+racket
+racket
+racket --help
+racket -e (read-line) 3. Evaluate/load expressions/files in order, until first error
+racket -e (read-line)
+racket -e (print (read-line))
+javac uk/org/dulwich/Chemistry.java
+racket
+racket bot.rkt 
+racket bot.rkt 
+racket bot.rkt 
+racket bot.rkt 
+racket bot.rkt 
+racket bot.rkt 
+racket bot.rkt 
+racket bot.rkt 
+racket bot.rkt 
+racket bot.rkt 
+racket bot.rkt 
+racket
+bash
+bash
+racket bot.rkt 
+racket bot.rkt 
+racket bot.rkt 
+racket bot.rkt 
+(let () 1 2)
+(let () 1 2)
+(displayln "HI")
+(print "HI")
+racket bot.rkt 
+racket bot.rkt 
+raco exe bot.rkt 
+ls
+rm bot.rkt\~
+mv bot symmetry 
+nohup symmetry &
+bash
+strings symmetry
+*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************
+strings symmetry | grep awf
+exit
+ls
+cd src/tex/
+ls
+exit
+rtorrent
+exit
+gnome-session --help
+gnome-session --session=gnome-wayland
+exit
+ls .config/chromium/Default/Extensions/bepbmhgboaologfdajaanbcjmnhjmhfn/
+ls .config/chromium/Default/Extensions/bepbmhgboaologfdajaanbcjmnhjmhfn/*
+which sudo
+[ -z $WINDOW ] && echo screen!
+[ -z $EMACS ] && echo nope, emacs.
+echo $EMACS
+[ -z $PWD ] && echo huh?!
+vim
+exit

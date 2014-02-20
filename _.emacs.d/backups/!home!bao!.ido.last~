@@ -1,0 +1,71 @@
+;;; -*- coding: utf-8 -*-
+
+;; ----- ido-last-directory-list -----
+(
+ ("/home/bao/src/" . "tex/")
+ ("/home/bao/Organic synthesis/uk/org/dulwich/" . "chemistry/")
+ ("/home/bao/Organic synthesis/uk/org/" . "dulwich/")
+ ("/home/bao/Organic synthesis/uk/" . "org/")
+ ("/home/bao/Organic synthesis/" . "uk/")
+ ("/home/bao/" . ".emacs.d/")
+)
+
+;; ----- ido-work-directory-list -----
+(
+ "/home/bao/src/tex/"
+ "/192.168.1.65:"
+ "/home/bao/.emacs.d/"
+ "/home/bao/src/sadaharu/"
+ "/home/bao/src/scheme/"
+ "/home/bao/src/c/"
+ "/home/bao/Organic synthesis/"
+ "/home/bao/Organic synthesis/uk/org/dulwich/"
+ "/home/bao/Organic synthesis/uk/org/dulwich/chemistry/"
+ "/home/bao/Organic synthesis/uk/org/dulwich/Chemistry/"
+)
+
+;; ----- ido-work-file-list -----
+(
+ "pstmt.tex"
+ "init.el"
+ "sadaharu.py"
+ "bot.rkt"
+ "bot.c"
+ "Start.java"
+ "Stub.java"
+ "OrgSyn.java"
+ "SubMenu.java"
+ "Chemistry.java"
+)
+
+;; ----- ido-dir-file-cache -----
+(
+ ("/home/bao/src/tex/" (21011 38109 413578 129000) "../" "pstmt.tex" "plaintex.log" ".pstmt.tex.py.out" "plaintex.pdf" ".pstmt.tex.py.err" "plaintex.tex" "plaintex.dvi" "./")
+
+ ("/home/bao/src/" (21009 12663 110702 191000) "tex/" "asm/" "python/" "d/" "clisp/" "perl/" "euler/" "../" "mcp/" "resources/" ".git/" "man/" "scheme/" "cpp/" "javascript/" "c/" "blobs/" "ntris/" "bash/" "html/" "java/" "elisp/" "ruby/" "./" "cs/")
+
+ ("/home/bao/" (21011 38084 450380 33000) ".emacs.d/" "ff9.txt" ".zsh/" ".eclipse/" ".rnd" ".macromedia/" ".ICEauthority" "wrk/" "ca.cert" ".dropbox/" ".vimrc" ".gksu.lock" "n64/" ".yaourtrc" ".jmol/" "src/" ".subversion/" ".bash_history" ".urxvt/" ".dzen/" "bin/" "ff9/" "vpngate.ovpn" ".mozilla/" ".swp" ".statusline.sh" "../" ".avidemux/" ".fehbg" ".xinitrc" ".dbus/" ".xsession-errors.old" ".git-credential-cache/" ".gimp-2.8/" ".wireshark/" ".fluxbox/" ".mozc/" ".Xdefaults" ".dbox/" "dbox/" ".wicd/" ".mtpaint" ".gvimrc" ".gstreamer-0.10/" ".screenrc" ".esd_auth" ".dropbox-dist/" ".dir_colors" "tmp/" ".minecraft/" "abs/" ".lgames/" ".ido.last" ".links/" "ff7/" ".Skype/" ".config/" ".cache/" ".qingy" ".xbindkeysrc" ".tor-browser-en/" "ff.zip" ".xsession" ".gnome/" ".electrum/" "ff8/" "ark/" ".ntris-scores" ".ntris" ".dolphin-emu/" ".awesome-client_history" ".zshrc" ".gnome2_private/" "Anki/" ".android/" ".xchat2/" ".Xauthority" ".lesshst" ".local/" ".zhistory" "ff8.txt" ".Xresources" ".emerald/" ".recently-used" ".thunderbird/" ".adobe/" "tay/" ".glivrc" ".dmrc" ".cgminer/" ".vim/" ".racket/" ".pki/" ".kde4/" ".i3/" ".cjklib/" ".viminfo" ".gnupg/" "ff7.txt" "var/" ".java/" ".arm/" ".project64/" ".qemu-launcher/" ".zcompdump" ".Xmodmap" ".audacity-data/" ".bitcoin/" ".cmd/" ".mplayer/" ".icedtea/" ".thumbnails/" ".irssi/" ".VirtualBox" "./" ".lighttable/" ".archey3.cfg" ".ssh/" ".pyrit/" ".gitconfig" "startwaylandkde" ".dwm" ".gnome2/" ".rtorrent.rc" ".gtk-bookmarks" ".sqlite_history" ".gtkrc-2.0" ".data/" ".ccache/" ".pip/" ".recentf" ".wallpaper" ".conkyrc" ".Almin-Soft/" ".xsession-errors")
+
+ ("/home/bao/.emacs.d/" (21002 41981 675794 363000) "../" "eshell/" "places" ".smex-items" "backups/" "init.el" "elpa/" "auto-save-list/" "./")
+
+ ("/home/bao/src/scheme/" (21009 3470 917167 246000) "../" "bot.rkt" "./")
+
+ ("/home/bao/src/sadaharu/" (21008 54712 337940 963000) "plugins/" "LICENSE" "static.py" "../" "hooks.py" ".git/" "README.md" "chan.py" "user.py" ".gitignore" "handler.py" "__pycache__/" "irc.py" "conf.json" "sadaharu.log" "./" "sadaharu.py" "event.py")
+
+ ("/home/bao/src/c/" (21008 57954 260377 961000) ".bot.c.swp" "../" "4d-tetris/" "resources/" "flash.c" "ga/" "gpc/" "a.out" "cube/" "network/" "maze/" "bot.c" "nn/" "hts1/" "totop/" "flash.bak" "./" "flash")
+
+ ("/home/bao/Organic synthesis/" (20891 60624 622303 737000) "uk/" "Manifest.mf" "images/" "../" "Start$2.class" ".metadata/" "Revision.jar" "Chemistry.exe" "Quick start to organic synthesis.doc" "Start$1.class" "jarify" "Start.java" "Pictures/" "Start.class" "vbdl/" "./" "2006/")
+
+ ("/home/bao/Organic synthesis/uk/org/dulwich/" (20891 61145 449482 174000) "Chemistry.class" "../" "chemistry/" "SubMenu.java" "Stub.java" "Chemistry$2.class" "SubMenu.class" "Stub.class" "Chemistry$1.class" "Chemistry.java" "./")
+
+ ("/home/bao/Organic synthesis/uk/org/dulwich/chemistry/" (20891 59016 591015 190000) "../" ".#OrgSyn.java" "OrgSyn.class" "#OrgSyn.java#" "OrgSyn.java" "./")
+
+ ("/home/bao/Organic synthesis/uk/org/dulwich/Chemistry/" (20891 55663 302514 847000) "../" "OrgSyn.java" "./")
+
+ ("/home/bao/Organic synthesis/uk/org/" (20891 35848 319861 823000) "../" "./" "dulwich/")
+
+ ("/home/bao/Organic synthesis/uk/" (20891 35859 163136 414000) "../" "org/" "./")
+)
+
+;; ----- ido-unc-hosts-cache -----
+t

@@ -1,4 +1,4 @@
-directory = /home/bao/lev
+directory = /mnt/data
 session = /home/bao/tmp/
 
 # Enable DHT support for trackerless torrents or when all trackers are down.
@@ -19,6 +19,9 @@ session = /home/bao/tmp/
 #scgi_local = /tmp/rtorrent.socket
 #schedule = chmod,0,0,"execute=chmod,777,/tmp/rtorrent.socket"
 scgi_port = localhost:5000
+
+#http_proxy = localhost:4444
+#proxy_address = localhost:4444
 
 # Watch a directory for new torrents, and stop those that have been
 # deleted.

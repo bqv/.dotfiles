@@ -1,26 +1,25 @@
-xterm*reverseVideo: true
-xterm*font: -*-fixed-medium-r-*-*-12-*-*-*-*-*-*-*
-xterm*clientDecoration: none
-urxvt*reverseVideo: true
-urxvt*transparent: true
-urxvt*shading: 32
-urxvt*scrollBar: false
-urxvt*font: -misc-fixed-medium-r-normal--12-*-*-*-*-*-*-*
-#urxvt*boldFont: -misc-fixed-bold-r-normal--10-80-75-75-c-50-iso10646-1
-#urxvt*font: -gohu-gohufont-medium-r-normal--11-*-*-*-*-*-*-*
-#urxvt*boldFont: -gohu-gohufont-bold-r-normal--11-*-*-*-*-*-*-*
-#urxvt*font: xft:DejaVu Sans Mono:pixelsize=10:antialias=true:hinting=true:autohint=true:
-#urxvt*boldFont: xft:DejaVu Sans Mono:bold:italic:pixelsize=10:antialias=true:hinting=true:autohint=true:
-#urxvt*font: xft:Inconsolata:pixelsize=11:antialias=true:hinting=false:autohint=true:
-#urxvt*boldFont: xft:Inconsolata:bold:italic:pixelsize=10:antialias=true:hinting=true:autohint=true:
-#urxvt*font: xft:ProggyTinySZ:antialias=false:hinting=true:autohint=true:
-#urxvt*boldFont: xft:ProggyTinySZ:bold:antialias=false:hinting=true:autohint=true:
-scratch*reverseVideo: true
-scratch*scrollBar: false
-scratch*font: -*-fixed-medium-r-*-*-13-*-*-*-*-*-*-*
-scratch*geometry: 80x24
+XTerm*reverseVideo: true
+XTerm*font: -*-fixed-medium-r-*-*-12-*-*-*-*-*-*-*
+XTerm*clientDecoration: none
+URxvt*reverseVideo: true
+URxvt*transparent: true
+URxvt*shading: 22
+URxvt*scrollBar: false
+URxvt*font: -misc-fixed-medium-r-normal--12-*-*-*-*-*-*-*
+!URxvt*boldFont: -misc-fixed-bold-r-normal--10-80-75-75-c-50-iso10646-1
+!URxvt*font: -gohu-gohufont-medium-r-normal--11-*-*-*-*-*-*-*
+!URxvt*boldFont: -gohu-gohufont-bold-r-normal--11-*-*-*-*-*-*-*
+!URxvt*font: xft:DejaVu Sans Mono:pixelsize=10:antialias=true:hinting=true:autohint=true:
+!URxvt*boldFont: xft:DejaVu Sans Mono:bold:italic:pixelsize=10:antialias=true:hinting=true:autohint=true:
+!URxvt*font: xft:Inconsolata:pixelsize=11:antialias=true:hinting=false:autohint=true:
+!URxvt*boldFont: xft:Inconsolata:bold:italic:pixelsize=10:antialias=true:hinting=true:autohint=true:
+!URxvt*font: xft:ProggyTinySZ:antialias=false:hinting=true:autohint=true:
+!URxvt*boldFont: xft:ProggyTinySZ:bold:antialias=false:hinting=true:autohint=true:
+URxvt*scrollTtyOutput:      false
+URxvt*scrollWithBuffer:     true
+URxvt*scrollTtyKeypress:    true
 
 *international: True
-*.inputMethod: ibus
+*.inputMethod: fcitx
 *.preeditType: OnTheSpot,None
 Xft.antialias: 0

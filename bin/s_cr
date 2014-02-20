@@ -1,0 +1,103 @@
+#!/bin/sh
+
+trap 'rm -rf /tmp/torchrome' INT TERM EXIT
+
+rm -rf /tmp/torchrome &&                                                                                                                                                                                                                     
+mkdir -p /tmp/torchrome/Default &&                                                                                                                                                                                                           
+touch /tmp/torchrome/First\ Run                                                                                                                                                                                                              
+cat <<END > /tmp/torchrome/Default/Preferences &&                                                                                                                                                                                            
+{                                                                                                                                                                                                                                            
+   "alternate_error_pages": {                                                                                                                                                                                                                
+      "enabled": false                                                                                                                                                                                                                       
+   },                                                                                                                                                                                                                                        
+   "autofill": {                                                                                                                                                                                                                             
+      "enabled": false                                                                                                                                                                                                                       
+   },                                                                                                                                                                                                                                        
+   "browser": {                                                                                                                                                                                                                              
+      "custom_chrome_frame": true                                                                                                                                                                                                            
+   },                                                                                                                                                                                                                                        
+   "default_search_provider": {
+      "enabled": true,
+      "encodings": "UTF-8",
+      "icon_url": "about:blank",
+      "id": "2",
+      "instant_url": "",
+      "keyword": "google.com",
+      "name": "Google",
+      "prepopulate_id": "1",
+      "search_url": "{google:baseURL}search?ie={inputEncoding}&q={searchTerms}",
+      "suggest_url": ""
+   },
+   "dns_prefetching": {
+      "enabled": false
+   },
+   "download": {
+      "directory_upgrade": true
+   },
+   "extensions": {
+      "autoupdate": {
+         "next_check": "12940162523897409"
+      },
+      "chrome_url_overrides": {
+         "bookmarks": [ "chrome-extension://eemcgdkfndhakfknompkggombfjjjeno/main.html" ]
+      },
+      "theme": {
+         "id": "",
+         "use_system": true
+      }
+   },
+   "geolocation": {
+      "default_content_setting": 2
+   },
+   "google": {
+      "services": {
+         "username": ""
+      }
+   },
+   "homepage": "about:blank",
+   "homepage_is_newtabpage": true,
+   "ntp": {
+      "alt_logo_end": 1255017600.0,
+      "alt_logo_start": 1255017600.0,
+      "pref_version": 3,
+      "web_resource_cache_update": "1295688216.445951"
+   },
+   "plugins": {
+      "enabled_internal_pdf3": true
+   },
+   "profile": {
+      "clear_site_data_on_exit": true,
+      "content_settings": {
+         "pref_version": 1
+      },
+      "default_content_settings": {
+         "plugins": 2
+      },
+      "exited_cleanly": true,
+      "multiple_profile_prefs_version": 1,
+      "notifications_default_content_setting": 2,
+      "password_manager_enabled": false
+   },
+   "safebrowsing": {
+      "enabled": false
+   },
+   "search": {
+      "suggest_enabled": false
+   },
+   "sync": {
+      "passwords": false,
+      "preferences": false,
+      "sessions": false,
+      "themes": false,
+      "typed_urls": false
+   },
+   "tabs": {
+      "use_vertical_tabs": false
+   },
+   "translate": {
+      "enabled": false
+   }
+}
+END
+chromium --incognito --proxy-server=socks5://localhost:9050 --user-data-dir=/tmp/torchrome --disable-plugins --disable-java --disable-metrics --disable-metrics-reporting --user-agent='Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/534.10 (KHTML, like Gecko) Chrome/8.0.552.237 Safari/534.10' &&
+rm -rf /tmp/torchrome

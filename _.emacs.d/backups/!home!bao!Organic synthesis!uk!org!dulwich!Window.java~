@@ -1,0 +1,19 @@
+package uk.org.dulwich;
+
+import java.awt.*;
+import java.awt.event.*;
+import java.swing.*;
+
+public abstract class Window extends JFrame implements Runnable,WindowListener {
+
+    public void windowOpened(WindowEvent e){}
+    public void windowClosing(WindowEvent e){}
+    public void windowClosed(WindowEvent e){}
+    public void windowIconified(WindowEvent e){}
+    public void windowDeiconified(WindowEvent e){}
+    public void windowActivated(WindowEvent e){}
+    public void windowDeactivated(WindowEvent e){}
+
+    public abstract static void main(String[] args){}
+
+}

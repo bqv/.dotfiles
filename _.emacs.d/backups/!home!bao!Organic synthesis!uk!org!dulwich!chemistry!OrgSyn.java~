@@ -1,0 +1,30 @@
+package uk.org.dulwich.Chemistry;
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+import uk.org.dulwich.SubMenu;
+
+public class OrgSyn extends SubMenu {
+    
+    public OrgSyn(JFrame p)
+    {
+        super(p);
+    }
+
+    public void run()
+    {
+        setTitle("Organic Synthesis");
+        Container pane = getContentPane();
+        pane.setLayout(new BoxLayout(pane, BoxLayout.PAGE_AXIS));
+        // Do stuff
+        pack();
+        setVisible(true);
+    }
+
+    public static void main(String[] args)
+    {
+        javax.swing.SwingUtilities.invokeLater(new OrgSyn(null));
+    }
+}

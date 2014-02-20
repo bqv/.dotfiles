@@ -1,0 +1,13 @@
+;;; weechat-autoloads.el --- automatically extracted autoloads
+;;
+;;; Code:
+
+
+(provide 'weechat-autoloads)
+;; Local Variables:
+;; version-control: never
+;; no-byte-compile: t
+;; no-update-autoloads: t
+;; coding: utf-8
+;; End:
+;;; weechat-autoloads.el ends here

@@ -1,0 +1,10 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =8
+let g:netrw_dirhist_1='/etc/httpd'
+let g:netrw_dirhist_2='/home/bao/.emacs.d'
+let g:netrw_dirhist_3='/home/bao/.config/chromium/Default/Extensions/aapbdbdomjkkjkaonfhkkikfgjllcleb'
+let g:netrw_dirhist_4='/home/bao/.adobe'
+let g:netrw_dirhist_5='/home/bao/.urxvt'
+let g:netrw_dirhist_6='/home/bao/.irssi'
+let g:netrw_dirhist_7='/home/bao/.torchat'
+let g:netrw_dirhist_8='/home/bao/.emacs.d'

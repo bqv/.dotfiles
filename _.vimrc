@@ -1,7 +1,4 @@
 
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
-
 set runtimepath=~/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,~/.vim/after
 
 " REQUIRED. This makes vim invoke Latex-Suite when you open a tex file.
@@ -48,16 +45,30 @@ set nowrap
 
 set spl=en_gb
 
+set ai
 set ts=4
 set sw=4
+set expandtab
 
 au VimEnter * au FileType tex silent! unmap! <buffer> é
 au VimEnter * au FileType tex silent! unmap! <buffer> ì
 au VimEnter * au FileType tex silent! unmap! <buffer> â
+" save file whenever cursor moves
+function! Update_if_possible()
+	if filewritable(bufname("%"))
+		update
+	endif
+endfunction
+"au FileType tex au CursorMoved * call Update_if_possible()
+"au FileType tex au CursorMovedI * call Update_if_possible()
 
 " Custom Mappings
 nmap ZzZ :w !sudo tee % > /dev/null<CR><CR><CR>:q!<CR>
 nmap wc :w !sed '/end{document}/,/$p/d; s/{.\+}/{}/' % \| detex \| wc -w<CR>
+
+if has("autocmd")
+	au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+endif
 
 " -- Word Count --
 
@@ -138,10 +149,10 @@ set switchbuf=useopen,usetab,split
 set tags=~/.tags
 set complete=.,w,b,u,t,i
 
-noremap <S-W> <C-w><Up>
-noremap <S-S> <C-w><Down>
-noremap <S-A> <C-w><Left>
-noremap <S-D> <C-w><Right>
+"noremap <M-W> <C-w><Up>
+"noremap <M-S> <C-w><Down>
+"noremap <M-A> <C-w><Left>
+"noremap <M-D> <C-w><Right>
 
 noremap <leader>o <Esc>:CommandT<CR>
 noremap <leader>O <Esc>:CommandTFlush<CR>

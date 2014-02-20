@@ -1,0 +1,37 @@
+
+;; ----- smex-history -----
+(
+ package-list-packages
+ customize
+ menu-bar-mode
+ eval-buffer
+ shell
+ buffer-menu
+ apropos
+)
+
+;; ----- smex-data -----
+(
+ (compile . 6)
+ (eshell . 1)
+ (calc . 1)
+ (spook . 5)
+ (erc . 4)
+ (menu-bar-open . 3)
+ (cd . 1)
+ (new-frame . 2)
+ (scheme-mode . 1)
+ (recompile . 1)
+ (run-scheme . 2)
+ (mouse-set-mark . 1)
+ (delete-frame . 2)
+ (lisp-mode . 1)
+ (run-lisp . 1)
+ (apropos . 2)
+ (eval-buffer . 10)
+ (buffer-menu . 1)
+ (shell . 1)
+ (menu-bar-mode . 1)
+ (customize . 1)
+ (package-list-packages . 2)
+)

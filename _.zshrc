@@ -1,21 +1,26 @@
 
-# Launch in screen
-if [ -z "$WINDOW" ]; then
- exec screen -xRR
-fi
 
-## Launch in dvtm
-#if [ -z "$DVTM" ]; then
-# exec dvtm
-#fi
-
+# No multiplexing in emacs
 if [ -z "$EMACS" ]; then;
+ ## Launch in screen
+ #[ -z "$WINDOW" ] && exec screen -xRR
+ # Launch in tmux
+ if [ -z "$TMUX" ]; then
+  if [[ "$(tty)" != /dev/tty* ]]; then
+      eval $(ssh-agent) > /dev/null
+      tmux -q has-session && exec tmux attach || exec tmux new
+  fi
+ fi
 else
- LC_ALL='en_GB.UTF-8'
- LANG='en_GB.UTF-8'
- LC_CTYPE=C
- exec bash
+ export LC_ALL='en_GB'
+ export LANG='en_GB'
+ export LC_CTYPE=C
+ export SHELL="emacs $EMACS"
+ #exec bash
 fi
+
+date
+
 setopt NOHUP
 #setopt NOTIFY
 #setopt NO_FLOW_CONTROL
@@ -48,7 +53,7 @@ zmodload -a zsh/mapfile mapfile
 
 
 PERL_SIGNALS=unsafe
-PATH="$PATH:/bin/:/sbin/:/usr/bin/:/usr/sbin/:/usr/local/bin/:/usr/local/sbin:$HOME/bin/:."
+PATH="./:$PATH:/bin/:/sbin/:/usr/bin/:/usr/sbin/:/usr/local/bin/:/usr/local/sbin:$HOME/bin/"
 TZ="Europe/London"
 HISTFILE=$HOME/.zhistory
 HISTSIZE=20000
@@ -56,6 +61,7 @@ SAVEHIST=20000
 HOSTNAME="`hostname`"
 PAGER='less'
 EDITOR='vim'
+ALTERNATE_EDITOR='emacsclient'
 DAY="`date | cut -b 1`"
 
     autoload colors zsh/terminfo
@@ -69,13 +75,17 @@ DAY="`date | cut -b 1`"
     done
     PR_NO_COLOR="%{$terminfo[sgr0]%}"
 #PS1="$PR_CYAN [$PR_BLUE$USER$PR_WHITE@$PR_GREEN$HOSTNAME$PR_NO_COLOR:$PR_RED%2c$PR_CYAN]$PR_YELLOW$screen#$PR_NO_COLOR " #COLORFUL
-PS1="$PR_LIGHT_WHITE [$PR_WHITE$USER$PR_NO_COLOR@$PR_WHITE$HOSTNAME$PR_GREY:$PR_GREY%2c$PR_NO_COLOR$PR_LIGHT_WHITE]$PR_GREY$DAY#$PR_NO_COLOR " #COLORLESS
+PS1="$PR_LIGHT_WHITE [$PR_WHITE$USER$PR_NO_COLOR@$PR_WHITE$HOSTNAME$PR_GREY:$PR_GREY%2c$PR_NO_COLOR$PR_LIGHT_WHITE]$PR_GREY$WINDOW#$PR_NO_COLOR " #COLORLESS
 #RPS1="$PR_LIGHT_YELLOW(%D{%m-%d %H:%M})$PR_NO_COLOR" #COLORFUL
 RPS1="$PR_WHITE(%D{%m-%d %H:%M})$PR_NO_COLOR" #COLORLESS
 #LANGUAGE=
 LC_ALL='en_GB.UTF-8'
 LANG='en_GB.UTF-8'
+#LC_ALL='ja_JP.UTF-8'
+#LANG='ja_JP.UTF-8'
 LC_CTYPE=C
+
+source <(dircolors ~/.dir_colors)
 
 if [ $SSH_TTY ]; then
   MUTT_EDITOR=vim
@@ -88,25 +98,58 @@ unsetopt ALL_EXPORT
 # # aliases
 # # --------------------------------------------------------------------
 
-alias slrn="slrn -n"
+alias slrn='slrn -n'
 alias man='LC_ALL=C LANG=C man'
 alias f="finger"
 alias ll='ls -al'
-alias ls="ls --color=always"
+alias ls="ls --color=auto"
 alias offlineimap-tty='offlineimap -u TTY.TTYUI'
 alias hnb-partecs='hnb $HOME/partecs/partecs-hnb.xml'
 alias rest2html-css='rst2html --embed-stylesheet --stylesheet-path=/usr/share/python-docutils/s5_html/themes/default/print.css'
 alias emacs='emacs -nw'
+alias sh="PS1='\u \W\$ ' sh"
 alias sudo='nocorrect sudo '
+alias please='sudo'
+alias fucking='sudo'
+alias sorry='sudo !!'
 alias cd..="cd .."
-alias grep="grep --color=always"
+alias grep="grep --color=auto"
+alias egrep="egrep --color=auto"
 alias stat="/usr/bin/stat"
 alias less="less -R"
-alias pacman="yaourt"
+alias diff="diff -s"
+alias pacman="aura"
+alias aura="sudo aura"
+alias yaourt="sudo yaourt"
+alias btrfs="sudo btrfs"
 alias sstart="sudo systemctl start"
 alias sstop="sudo systemctl stop"
 alias srestart="sudo systemctl restart"
 alias sstatus="sudo systemctl status"
+alias senable="sudo systemctl enable"
+alias sdisable="sudo systemctl disable"
+alias smask="sudo systemctl mask"
+alias sunmask="sudo systemctl unmask"
+alias sreload="sudo systemctl daemon-reload"
+alias gtop="intel_gpu_top"
+alias push="ADB_TRACE=adb adb push"
+alias feh="feh -F"
+
+# # --------------------------------------------------------------------
+# # functions
+# # --------------------------------------------------------------------
+
+function pm() {
+    { aura --color=always -Ss $1 && aura -As $1 } | less
+}
+
+function dotify() {
+    mv $1 .dotfiles/_$1
+    ln -s .dotfiles/_$1 $1
+}
+
+matrix() { cmatrix -a -b -s; }
+hexscroll() { echo -e '\033[0;32m'; pv -qL 90 /dev/urandom | xxd -c $(( ($COLUMNS-10)*2/7 )); }
 
 autoload -U compinit
 compinit
@@ -188,7 +231,7 @@ zstyle ':completion::*:(vi|vim|emacs):*' ignored-patterns \
 # ignore completion functions (until the _ignored completer)
 zstyle ':completion:*:functions' ignored-patterns '_*'
 zstyle ':completion:*:*:*:users' ignored-patterns \
-        adm apache bin daemon games gdm halt ident junkbust lp mail mailnull \
+        adm adb apache bin daemon games gdm halt ident junkbust lp mail mailnull \
         named news nfsnobody nobody nscd ntp operator pcap postgres radvd \
         rpc rpcuser rpm shutdown squid sshd sync uucp vcsa xfs avahi-autoipd\
         avahi backup messagebus beagleindex debian-tor dhcp dnsmasq fetchmail\
@@ -207,3 +250,4 @@ zstyle '*' single-ignored show
 
 fortune -as linux linuxcookie paradoxum computers science definitions | tee -a /tmp/fortune.log | cowsay
 echo -e '\n' >> /tmp/fortune.log
+
