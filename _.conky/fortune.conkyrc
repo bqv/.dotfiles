@@ -94,7 +94,12 @@ override_utf8_locale yes
 use_spacer right
 
 
-color0 467f77 		# Light blue
+color0 219C25 		# mushroom green
+color1 grey60       # discrete grey
+color2 fefefd       # light white
+color3 1f0c06       # wood brown
+color4 e4a663       # pale beige
+color5 d40360       # pink...
 text_buffer_size 2048
 
 # variable is given either in format $variable or in ${variable}. Latter
@@ -103,4 +108,4 @@ text_buffer_size 2048
 # stuff after 'TEXT' will be formatted on screen
 TEXT
 ${color0}Fortune Cookie
-${font Liberation Mono:bold:size=11}${color grey60}${execi 300 fortune -as | fold -w 44 | head -n 6}
+${font Liberation Mono:bold:size=11}${color1}${execi 300 fortune -as | fold -w 44 | head -n 6}

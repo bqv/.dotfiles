@@ -96,7 +96,12 @@ override_utf8_locale yes
 use_spacer right
 
 
-color0 467f77 		# Light blue
+color0 219C25 		# mushroom green
+color1 grey60       # discrete grey
+color2 fefefd       # light white
+color3 1f0c06       # wood brown
+color4 e4a663       # pale beige
+color5 d40360       # pink...
 text_buffer_size 2048
 
 # variable is given either in format $variable or in ${variable}. Latter
@@ -106,11 +111,11 @@ text_buffer_size 2048
 # stuff after 'TEXT' will be formatted on screen
 TEXT
 ${color0}Calendar  ${hr 2}
-${voffset 3}${color grey60}${execpi 3600 VinDSL_Cal_8=`date +%-d`; cal -m | sed -e '1d' -e 's/\<'"$VinDSL_Cal_8"'\>/${color orange}&${color grey60}/'}
-${goto 230}${voffset -96}${color grey70}${font Liberation Mono:bold:size=24}${time %R}${font}
-${color0}${alignr}${time %A}${color grey50}
+${voffset 3}${color2}${execpi 3600 VinDSL_Cal_8=`date +%-d`; cal -m | sed -e '1d' -e 's/\<'"$VinDSL_Cal_8"'\>/${color4}&${color2}/'}
+${goto 230}${voffset -96}${color2}${font Liberation Mono:bold:size=24}${time %R}${font}
+${color4}${alignr}${time %A}${color5}
 ${alignr}${time %B %d, %Y}${voffset 32}
 ${color0}Gmail: ${hr 2}
-${color gray60}${goto 20}${execpi 1800 ruby .conky/scripts/gmail.rb} new emails
+${color1}${goto 20}${execpi 1800 ruby .conky/scripts/gmail.rb} new emails
 
 ${execpi 3600 ruby .conky/scripts/weather.rb}

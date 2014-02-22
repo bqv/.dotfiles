@@ -98,7 +98,12 @@ override_utf8_locale yes
 use_spacer right
 
 
-color0 467f77 		# Light blue
+color0 219C25 		# mushroom green
+color1 grey60       # discrete grey
+color2 fefefd       # light white
+color3 1f0c06       # wood brown
+color4 e4a663       # pale beige
+color5 d40360       # pink...
 text_buffer_size 2048
 
 # variable is given either in format $variable or in ${variable}. Latter
@@ -108,23 +113,23 @@ text_buffer_size 2048
 # stuff after 'TEXT' will be formatted on screen
 
 TEXT
-${color0}Public IP: ${color grey60}${execi 3600 curl -s ifconfig.me } \
-${goto 220}${color0}LAN Ping: ${color grey60}${execi 30 ping -nq -c 1 -W 2 kishin.lan | tail -n 1 | cut -d'/' -f 5 | xargs printf "%0.f" }
-${color0}Gateway IP: ${color grey60}$gw_ip \
-${goto 220}${color0}WAN Ping: ${color grey60}${execi 30 ping -nq -c 1 -W 2 google.com | tail -n 1 | cut -d'/' -f 5 | xargs printf "%0.f" }
-${color0}DNS: ${color grey60}$nameserver \
-${goto 172}${color0}Hostname: ${color grey60}${execi 86400 hostname}
-${if_up wlp2s0}${color0}Wi-fi IP: ${color grey60}${addr wlp2s0}
-${color0}Signal: ${color grey60}${wireless_link_qual_perc wlp2s0}${goto 95}% ${goto 112}${wireless_link_bar wlp2s0}${else}${color0}No wlan0$endif
-${color0}${goto 20}Down speed: ${color grey60}${downspeed wlp2s0} ${goto 200}${color0}Up speed: ${color grey60}${upspeed wlp2s0}
-${color grey60}${downspeedgraph wlp2s0 12,150 303030 00ff00} ${alignr}${color grey60}${upspeedgraph wlp2s0 12,150 303030 ff0000}
-${color0}Total down: ${color grey60}${totaldown wlp2s0} ${goto 180}${color0}Total up: ${color grey60}${totalup wlp2s0}
+${color0}Public IP: ${color1}${execi 3600 curl -s ifconfig.me } \
+${goto 220}${color0}LAN Ping: ${color1}${execi 30 ping -nq -c 1 -W 2 kishin.lan | tail -n 1 | cut -d'/' -f 5 | xargs printf "%0.f" }
+${color0}Gateway IP: ${color1}$gw_ip \
+${goto 220}${color0}WAN Ping: ${color1}${execi 30 ping -nq -c 1 -W 2 google.com | tail -n 1 | cut -d'/' -f 5 | xargs printf "%0.f" }
+${color0}DNS: ${color1}$nameserver \
+${goto 172}${color0}Hostname: ${color1}${execi 86400 hostname}
+${if_up wlp2s0}${color0}Wi-fi IP: ${color1}${addr wlp2s0}
+${color0}Signal: ${color1}${wireless_link_qual_perc wlp2s0}${goto 95}% ${goto 112}${wireless_link_bar wlp2s0}${else}${color0}No wlan0$endif
+${color0}${goto 20}Down speed: ${color1}${downspeed wlp2s0} ${goto 200}${color0}Up speed: ${color1}${upspeed wlp2s0}
+${color1}${downspeedgraph wlp2s0 12,150 303030 00ff00} ${alignr}${color1}${upspeedgraph wlp2s0 12,150 303030 ff0000}
+${color0}Total down: ${color1}${totaldown wlp2s0} ${goto 180}${color0}Total up: ${color1}${totalup wlp2s0}
 ${color0}Activity:  ${hr 2}
-${color0}Inbound connections: ${color grey60}${tcp_portmon 1 32767 count}
-${color0}Outbound connections: ${color grey60}${tcp_portmon 32768 61000 count}
+${color0}Inbound connections: ${color1}${tcp_portmon 1 32767 count}
+${color0}Outbound connections: ${color1}${tcp_portmon 32768 61000 count}
 ${color0}Proto  Foreign Address ${goto 250}Name
-${color grey60} ${execi 3 bash ~/.conky/scripts/netstat.sh 1 proto}${goto 63}${execi 3 bash ~/.conky/scripts/netstat.sh 1 address}${goto 230}${execi 3 bash ~/.conky/scripts/netstat.sh 1 name}
-${color grey60} ${execi 3 bash ~/.conky/scripts/netstat.sh 2 proto}${goto 63}${execi 3 bash ~/.conky/scripts/netstat.sh 2 address}${goto 230}${execi 3 bash ~/.conky/scripts/netstat.sh 2 name}
-${color grey60} ${execi 3 bash ~/.conky/scripts/netstat.sh 3 proto}${goto 63}${execi 3 bash ~/.conky/scripts/netstat.sh 3 address}${goto 230}${execi 3 bash ~/.conky/scripts/netstat.sh 3 name}
-${color grey60} ${execi 3 bash ~/.conky/scripts/netstat.sh 4 proto}${goto 63}${execi 3 bash ~/.conky/scripts/netstat.sh 4 address}${goto 230}${execi 3bash ~/.conky/scripts/netstat.sh 4 name}
-${color grey60} ${execi 3 bash ~/.conky/scripts/netstat.sh 5 proto}${goto 63}${execi 3 bash ~/.conky/scripts/netstat.sh 5 address}${goto 230}${execi 3bash ~/.conky/scripts/netstat.sh 5 name}
+${color1} ${execi 3 bash ~/.conky/scripts/netstat.sh 1 proto}${goto 63}${execi 3 bash ~/.conky/scripts/netstat.sh 1 address}${goto 230}${execi 3 bash ~/.conky/scripts/netstat.sh 1 name}
+${color1} ${execi 3 bash ~/.conky/scripts/netstat.sh 2 proto}${goto 63}${execi 3 bash ~/.conky/scripts/netstat.sh 2 address}${goto 230}${execi 3 bash ~/.conky/scripts/netstat.sh 2 name}
+${color1} ${execi 3 bash ~/.conky/scripts/netstat.sh 3 proto}${goto 63}${execi 3 bash ~/.conky/scripts/netstat.sh 3 address}${goto 230}${execi 3 bash ~/.conky/scripts/netstat.sh 3 name}
+${color1} ${execi 3 bash ~/.conky/scripts/netstat.sh 4 proto}${goto 63}${execi 3 bash ~/.conky/scripts/netstat.sh 4 address}${goto 230}${execi 3bash ~/.conky/scripts/netstat.sh 4 name}
+${color1} ${execi 3 bash ~/.conky/scripts/netstat.sh 5 proto}${goto 63}${execi 3 bash ~/.conky/scripts/netstat.sh 5 address}${goto 230}${execi 3bash ~/.conky/scripts/netstat.sh 5 name}
