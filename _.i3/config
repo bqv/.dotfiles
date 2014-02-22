@@ -94,10 +94,12 @@ bindsym $mod+p exec dmenu_run
 # installed.
 bindsym $mod+m exec --no-startup-id i3-dmenu-desktop
 
-# take a screenshot
-bindsym $mod+F12 exec xwd -root -display :0.0 | convert xwd:- .screenshots/$(date -Ins).png
 # take a windowshot
 bindsym $mod+F11 exec xwd -display :0.0 | convert xwd:- .screenshots/$(date -Ins).png
+# take a screenshot
+bindsym $mod+F12 exec xwd -root -display :0.0 | convert xwd:- .screenshots/$(date -Ins).png
+# take a better screenshot
+bindsym Print exec scrot .screenshots/$(date -Ins).png
 
 # run an ipc command
 bindsym $mod+c exec i3run
