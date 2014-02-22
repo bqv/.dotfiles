@@ -47,6 +47,8 @@
 ;  (load-theme 'solarized-light t)
 ;  (load-theme 'tango-2 t))
 (load-theme 'tango-2 t)
+(setq evil-default-cursor t)
+(set-cursor-color "#ffffff")
 
 ;; Racket scheme
 (setq scheme-program-name "racket")
