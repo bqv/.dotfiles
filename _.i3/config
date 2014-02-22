@@ -295,6 +295,7 @@ set $mute /usr/share/icons/gnome/16x16/status/audio-volume-muted.png
 bindsym XF86AudioRaiseVolume exec $amixer 5%+ | awk '/^  Front Left/{if($$6=="[off]"){print "-i $mute -c -MUTE-\\ "$$5}else{print "-i $volm -c "$$5} }' | tr -d "[]" | xargs $twmnc {}
 bindsym XF86AudioLowerVolume exec $amixer 5%- | awk '/^  Front Left/{if($$6=="[off]"){print "-i $mute -c -MUTE-\\ "$$5}else{print "-i $volm -c "$$5} }' | tr -d "[]" | xargs $twmnc {}
 bindsym XF86AudioMute exec $amixer toggle     | awk '/^  Front Left/{if($$6=="[off]"){print "-i $mute -c -MUTE-\\ "$$5}else{print "-i $volm -c "$$5} }' | tr -d "[]" | xargs $twmnc {}
+bindsym Mod4+Mod1+minus exec amixer -D pulse sget Master | awk '/^  Front Left/{print "Currently at "$$5}' | tr -d '[]' | xargs -I{} $twmnc -i $volm -c "{}"
 bindsym Mod4+Mod1+1 exec $amixer 10%;    exec $twmnc -i $volm -c "Set to 10%"
 bindsym Mod4+Mod1+2 exec $amixer 20%;    exec $twmnc -i $volm -c "Set to 20%"
 bindsym Mod4+Mod1+3 exec $amixer 30%;    exec $twmnc -i $volm -c "Set to 30%"
