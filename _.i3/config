@@ -101,6 +101,8 @@ bindsym $mod+F12 exec xwd -root -display :0.0 | convert xwd:- .screenshots/$(dat
 # take a better screenshot
 bindsym Print exec scrot .screenshots/$(date -Ins).png
 
+bindsym $mod+t exec i3-input -F 'exec transset-df %s' -P "Opacity: "
+
 # run an ipc command
 bindsym $mod+c exec i3run
 
@@ -187,6 +189,9 @@ bindsym $mod+Shift+minus move scratchpad
 # Show the first scratchpad window
 bindsym $mod+minus scratchpad show
 
+# Go to urgent workspace
+bindsym $mod+u [urgent="latest"] focus
+
 # starting a specially named term automatically 
 # move this to scratchpad, if active
 #exec --no-startup-id emacs -name scratchpad
@@ -232,8 +237,15 @@ mode "move/resize" {
         # back to normal: Enter or Escape
         bindsym Return mode "default"
         bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
 }
 bindsym $mod+r mode "move/resize"
+
+# Disable i3 commands with an empty mode.
+mode "insert" {
+    bindsym $mod+Escape mode "default"
+}
+bindsym $mod+Escape mode "insert"
 
 # run autostart commands
 exec_always --no-startup-id compton --config ~/.comptonrc -b
