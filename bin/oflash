@@ -1,0 +1,50 @@
+#!/bin/sh
+
+## Legacy flash player ##
+
+#kill -9 `pidof flash mplayer | sed "s/$$//"`
+
+PID=`ps ax | awk '/libflashplayer.so\ /{print $1}'`
+FDS=`lsof -p $PID 2>/dev/null |grep tmp.Flash|awk '{print $4":"$9}'`
+
+echo --
+for l in $FDS
+do
+	FD=`echo $l|awk -F":" '{print $1}'|sed 's/.$//'`
+	OLD_NAME=`echo $l|awk -F":" '{print $2}'`
+	FILE="/proc/$PID/fd/$FD"
+	if [[ $1 == "cp" ]] || [[ $1 == "-cp" ]] || [[ $1 == "--cp" ]]
+	then
+		echo Copying $FILE to $(cut -c6- <<< $OLD_NAME)
+		#cp $FILE $(cut -c6- <<< $OLD_NAME)
+		pv $FILE > $(cut -c6- <<< $OLD_NAME)
+	elif [[ $1 == "ls" ]] || [[ $1 == "-ls" ]] || [[ $1 == "--ls" ]]
+	then
+		SZ=`du -bL $FILE | cut -f 1`
+		echo Found: $FILE \(${SZ}b\)
+	elif [[ $USER == "root" ]]
+	then
+		echo Broadcasting "$FILE ($OLD_NAME)"
+		SZ=`du -bL $FILE | cut -f 1`
+		nice --10 mplayer -fs $FILE $@;
+		NSZ=`du -bL $FILE | cut -f 1`
+		while [[ $SZ -lt $NSZ ]]
+		do
+			SZ=$NSZ
+			nice --10 mplayer -fs $FILE $@;
+			NSZ=`du -bL $FILE | cut -f 1`
+		done
+	else
+		echo Playing "$FILE ($OLD_NAME)"
+		SZ=`du -bL $FILE | cut -f 1`
+		mplayer -fs $FILE $@;
+		NSZ=`du -bL $FILE | cut -f 1`
+		while [[ $SZ -lt $NSZ ]]
+		do
+			SZ=$NSZ
+			mplayer -fs $FILE $@;
+			NSZ=`du -bL $FILE | cut -f 1`
+		done
+	fi
+	echo --
+done

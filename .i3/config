@@ -1,0 +1,451 @@
+# i3 config file (v4)
+##
+## Please see http://i3wm.org/docs/userguide.html for a complete reference!
+
+## reload the configuration file
+bindsym $mod+Shift+r reload
+## restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Control+Shift+r exec "i3-nagbar -t warning -m 'You pressed the restart shortcut. Do you really want to warm-restart i3?' -b 'Yes, exit i3' 'i3-msg restart'"
+## exit i3 (logs you out of your X session)
+bindsym $mod+Control+q exec ~/bin/session
+
+## mod key
+set $mod Mod4
+## workspace names
+set $1 "1: Shell"
+set $2 "2: Web"
+set $3 "3: Chat"
+set $4 "4: Media"
+set $5 "5: Work"
+set $6 "6: Dev"
+set $7 "7: Steam"
+set $8 "8: Games"
+set $9 "9: Updates"
+set $0 "~"
+## monitors
+set $mon0 DisplayPort-1 DisplayPort-0
+set $mon0a DisplayPort-1
+set $mon0b DisplayPort-0
+set $mon1 HDMI-A-4 HDMI-A-1
+set $mon1a HDMI-A-4
+set $mon1b HDMI-A-1
+set $mon2 HDMI-A-3 HDMI-A-0
+set $mon2a HDMI-A-3
+set $mon2b HDMI-A-0
+set $mon3 DVI-D-0
+
+assign [class="XTerm" instance="pacman"] $9
+assign [class="Civ5XP"] $8
+assign [class="Democracy3.bin.x86_64"] $8
+assign [class="Factorio"] $8
+assign [class="Steam"] $7
+assign [class="steam"] $7
+assign [class="Wine"] $7
+assign [class="Emacs"] $6
+assign [class="code"] $6
+assign [class="Eclipse"] $5
+assign [class="Thunderbird"] $5
+assign [class="mplayer2"] $4
+assign [class="mpv"] $4
+assign [class="Kodi"] $4
+assign [class="Spotify"] $4
+assign [class="URxvt" instance="irc"] $3
+assign [class="Slack"] $3
+assign [class="discord"] $3
+assign [class="Dwb"] $2
+assign [class="luakit"] $2
+assign [class="Firefox"] $2
+assign [class="Chromium"] $2
+assign [class="URxvt"] $1
+assign [class="Termite"] $1
+assign [class="XTerm"] $1
+
+for_window [class="Wine"] floating enable; border 1pixel
+for_window [class="URxvt"] border 1pixel
+for_window [class="Termite"] border 1pixel
+for_window [class="xbmc.bin"] border 1pixel
+for_window [class="Chromium"] border pixel 2
+for_window [class="Emacs"] border none
+for_window [class="Dwb"] border none
+
+workspace $1 output $mon1
+workspace $2 output $mon2
+workspace $3 output $mon0
+workspace $4 output $mon3
+workspace $5 output $mon2
+workspace $6 output $mon1
+workspace $7 output $mon3
+workspace $8 output $mon1
+workspace $9 output $mon3
+
+workspace_layout tabbed
+#layout stacking
+
+## Font for window titles. Will also be used by the bar unless a different font
+## is used in the bar {} block below. ISO 10646 = Unicode
+font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+## The font above is very space-efficient, that is, it looks good, sharp and
+## clear in small sizes. However, if you need a lot of unicode glyphs or
+## right-to-left text rendering, you should instead use pango for rendering and
+## chose a FreeType font, such as:
+#font pango:DejaVu Sans Mono 10
+#font pango:monospace 8
+
+## Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+## Mouse settings
+focus_follows_mouse no # yes | no
+mouse_warping none # output | none
+
+## start a terminal
+bindsym $mod+Return exec termite
+bindsym $mod+Shift+Return exec tmux ls | dmenu -i -l 9 -p "Tmux Session: " | xargs --no-run-if-empty -I{} termite -e "tmux new -As {}"
+bindsym $mod+Control+Return exec tmux ls | dmenu -i -l 9 -p "Tmux Session Copy: " | xargs --no-run-if-empty -I{} sh -c 'exec sed s/X:/X/ <<< X$DISPLAY | tr : - | xargs termite -e "tmux new -As {}"'
+## start a browser
+bindsym $mod+c exec chromium
+bindsym $mod+Shift+c exec echo -n | dmenu -i -p "Chromium - Open URL: " | cut -d' ' -f 2 | xargs --no-run-if-empty chromium
+bindsym $mod+b exec dwb
+bindsym $mod+Shift+b exec cat .config/dwb/default/quickmarks | dmenu -i -l 9 -p "Dwb - Open URL: " | cut -d' ' -f 2 | xargs --no-run-if-empty dwb
+## start another browser
+bindsym $mod+Control+f exec firefox
+## start a file manager
+bindsym $mod+Shift+f exec pcmanfm
+## start an editor
+bindsym $mod+Control+e exec emacsclient -c
+bindsym $mod+g exec gummi
+## start irc
+bindsym $mod+i exec termite -t irc -e irc
+## start skype
+bindsym $mod+Shift+i exec skype
+
+## kill focused window
+bindsym $mod+Shift+q kill
+
+## start dmenu (a program launcher)
+bindsym $mod+p exec dmenu_run
+bindsym $mod+Shift+p exec cat ~/.dmenu_cache | dmenu -p ! -l 9 ${1+"$@"} | xargs -I{} i3-msg "exec {}"
+bindsym $mod+Control+p exec perl ~/bin/dsteam
+## start a terminal wrapped dmenu
+bindsym $mod+Shift+x exec env dmenu_path_c | dmenu -p !! -l 9 ${1+"$@"} | xargs -I{} termite -e "sh -c '{}&&read||read'"
+## There also is the (new) i3-dmenu-desktop which only displays applications
+## shipping a .desktop file. It is a wrapper around dmenu, so you need that
+## installed.
+bindsym $mod+m exec --no-startup-id i3-dmenu-desktop
+
+## start calculator
+bindsym $mod+Shift+e exec xsel -o | dmenu -p Calculate: | xargs --no-run-if-empty echo | bc -l 2>&1 | dmenu -p Answer: | xsel -i
+
+## take a windowshot
+bindsym $mod+F11 exec xwd -display :0.0 | convert xwd:- .screenshots/$(date -Ins).png
+## take a screenshot
+bindsym $mod+F12 exec xwd -root -display :0.0 | convert xwd:- .screenshots/$(date -Ins).png
+## take a better screenshot
+bindsym Print exec scrot .screenshots/$(date -Ins).png
+
+## set window opacity
+bindsym $mod+t exec sh -c 'echo "-t"&&seq 0 0.05 0.95&&echo -e "0.99\n1.00"' | dmenu -p "New opacity: " | xargs --no-run-if-empty transset-df -a
+bindsym $mod+Shift+t exec sh -c 'echo "-t"&&seq 0 0.05 0.95&&echo -e "0.99\n1.00"' | dmenu -p "New opacity: " | xargs --no-run-if-empty transset-df
+
+## run an ipc command
+bindsym $mod+x exec i3-msg "." | json_reformat | grep tokens | cut -b 62- | tr -d "[:punct:]" | sed "s/ /\n/g" | dmenu | xargs -I{} i3-msg "{}" | xargs -I{} dunstify -a "i3 Output" {}
+
+## rename a workspace
+bindsym $mod+n exec echo -n | dmenu -p "New tag name: " | xargs --no-run-if-empty -I{} i3-msg 'rename workspace to "{}"'
+
+## change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+## move focused window
+bindsym $mod+Shift+h move container left
+bindsym $mod+Shift+j move container down
+bindsym $mod+Shift+k move container up
+bindsym $mod+Shift+l move container right
+
+## split in horizontal orientation
+bindsym $mod+s split h
+
+## split in vertical orientation
+bindsym $mod+z split v
+
+## enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen
+
+## change container layout (stacked, tabbed, toggle split)
+bindsym $mod+q layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+## toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+## change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+## focus the parent container
+bindsym $mod+a focus parent
+
+## focus the child container
+bindsym $mod+d focus child
+
+## switch to workspace
+bindsym $mod+1 workspace $1
+bindsym $mod+2 workspace $2
+bindsym $mod+3 workspace $3
+bindsym $mod+4 workspace $4
+bindsym $mod+5 workspace $5
+bindsym $mod+6 workspace $6
+bindsym $mod+7 workspace $7
+bindsym $mod+8 workspace $8
+bindsym $mod+9 workspace $9
+bindsym $mod+0 workspace $0
+## switch to last workspace
+bindsym $mod+Tab workspace back_and_forth
+## switch to prev workspace
+bindsym $mod+Left workspace prev
+## switch to next workspace
+bindsym $mod+Right workspace next
+## move workspace/windows to left output
+bindsym $mod+Control+Left move workspace to output left
+bindsym $mod+Shift+Left move container to workspace prev; workspace prev
+## move workspace/windows to right output
+bindsym $mod+Control+Right move workspace to output right
+bindsym $mod+Shift+Right move container to workspace next; workspace next
+
+## move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $1
+bindsym $mod+Shift+2 move container to workspace $2
+bindsym $mod+Shift+3 move container to workspace $3
+bindsym $mod+Shift+4 move container to workspace $4
+bindsym $mod+Shift+5 move container to workspace $5
+bindsym $mod+Shift+6 move container to workspace $6
+bindsym $mod+Shift+7 move container to workspace $7
+bindsym $mod+Shift+8 move container to workspace $8
+bindsym $mod+Shift+9 move container to workspace $9
+bindsym $mod+Shift+0 move container to workspace $0
+## move focused container to last workspace
+bindsym $mod+Shift+Tab move container to workspace back_and_forth
+
+## Make the currently focused window a scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+## Show the first scratchpad window
+bindsym $mod+minus scratchpad show
+
+## Go to urgent workspace
+bindsym $mod+u [urgent="latest"] focus
+
+## Lock screens
+bindsym $mod+F1 exec slock
+
+## starting a specially named term automatically 
+## move this to scratchpad, if active
+#exec --no-startup-id emacs -name scratchpad
+#for_window [class="Emacs" instance="scratchpad"] move scratchpad
+exec --no-startup-id gummi
+for_window [class="Gummi"] move scratchpad
+
+## resize window (you can also use the mouse for that)
+mode "Move/Resize" {
+        ## These bindings trigger as soon as you enter the move/resize mode
+
+        ## grow or shrink the window’s width/height
+        bindsym Shift+h resize shrink width 10 px or 10 ppt
+        bindsym Shift+j resize grow height 10 px or 10 ppt
+        bindsym Shift+k resize shrink height 10 px or 10 ppt
+        bindsym Shift+l resize grow width 10 px or 10 ppt
+
+        ## same keys, but for the motion
+        bindsym h move left
+        bindsym j move down
+        bindsym k move up
+        bindsym l move right
+
+        ## same keys, but for the reverse growth
+        bindsym Control+h resize grow width 5 px or 5 ppt; move left
+        bindsym Control+j resize shrink height 5 px or 5 ppt; move down
+        bindsym Control+k resize grow height 5 px or 5 ppt; move up
+        bindsym Control+l resize shrink width 5 px or 5 ppt; move right
+
+        ## same keys, but for balanced growth
+        bindsym Control+Shift+h resize shrink width 10 px or 10 ppt; move right
+        bindsym Control+Shift+j resize grow height 10 px or 10 ppt; move up
+        bindsym Control+Shift+k resize shrink height 10 px or 10 ppt; move down
+        bindsym Control+Shift+l resize grow width 10 px or 10 ppt; move left
+
+        ## change focus
+        bindsym $mod+h focus left
+        bindsym $mod+j focus down
+        bindsym $mod+k focus up
+        bindsym $mod+l focus right
+
+        ## back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+bindsym $mod+r mode "Move/Resize"
+
+## Disable i3 commands with an empty mode.
+mode "Insert" {
+	bindsym $mod+Escape mode "default"
+}
+bindsym $mod+Escape mode "Insert"
+
+## Media Center remote
+mode "MediaCenter" {
+	bindsym BackSpace exec echo -e "{\x22jsonrpc\x22:\x22\x32.0\x22\x2C\x22id\x22:\x22\x31\x22\x2C\x22method\x22:\x22Input.Back\x22}" | timeout 0.2 nc osmc.local 9090
+	bindsym Escape exec echo -e "{\x22jsonrpc\x22:\x22\x32.0\x22\x2C\x22id\x22:\x22\x31\x22\x2C\x22method\x22:\x22Input.Back\x22}" | timeout 0.2 nc osmc.local 9090
+	bindsym space exec echo -e "{\x22jsonrpc\x22:\x22\x32.0\x22\x2C\x22id\x22:\x22\x31\x22\x2C\x22method\x22:\x22Input.Select\x22}" | timeout 0.2 nc osmc.local 9090
+	bindsym Return exec echo -e "{\x22jsonrpc\x22:\x22\x32.0\x22\x2C\x22id\x22:\x22\x31\x22\x2C\x22method\x22:\x22Input.Select\x22}" | timeout 0.2 nc osmc.local 9090
+
+	bindsym Left exec echo -e "{\x22jsonrpc\x22:\x22\x32.0\x22\x2C\x22id\x22:\x22\x31\x22\x2C\x22method\x22:\x22Input.Left\x22}" | timeout 0.2 nc osmc.local 9090
+	bindsym Down exec echo -e "{\x22jsonrpc\x22:\x22\x32.0\x22\x2C\x22id\x22:\x22\x31\x22\x2C\x22method\x22:\x22Input.Down\x22}" | timeout 0.2 nc osmc.local 9090
+	bindsym Up exec echo -e "{\x22jsonrpc\x22:\x22\x32.0\x22\x2C\x22id\x22:\x22\x31\x22\x2C\x22method\x22:\x22Input.Up\x22}" | timeout 0.2 nc osmc.local 9090
+	bindsym Right exec echo -e "{\x22jsonrpc\x22:\x22\x32.0\x22\x2C\x22id\x22:\x22\x31\x22\x2C\x22method\x22:\x22Input.Right\x22}" | timeout 0.2 nc osmc.local 9090
+
+	bindsym c exec echo -e "{\x22jsonrpc\x22:\x22\x32.0\x22\x2C\x22id\x22:\x22\x31\x22\x2C\x22method\x22:\x22Input.ContextMenu\x22}" | timeout 0.2 nc osmc.local 9090
+	bindsym h exec echo -e "{\x22jsonrpc\x22:\x22\x32.0\x22\x2C\x22id\x22:\x22\x31\x22\x2C\x22method\x22:\x22Input.Home\x22}" | timeout 0.2 nc osmc.local 9090
+	bindsym i exec echo -e "{\x22jsonrpc\x22:\x22\x32.0\x22\x2C\x22id\x22:\x22\x31\x22\x2C\x22method\x22:\x22Input.Info\x22}" | timeout 0.2 nc osmc.local 9090
+	#bindsym  Input.SendText
+
+	bindsym XF86AudioPlay exec echo -e "{\x22jsonrpc\x22:\x22\x32.0\x22\x2C\x22id\x22:\x22\x31\x22\x2C\x22method\x22:\x22Player.PlayPause\x22\x2C\x22params\x22:{\x22playerid\x22:1}}" | timeout 0.2 nc osmc.local 9090
+	bindsym XF86AudioStop exec echo -e "{\x22jsonrpc\x22:\x22\x32.0\x22\x2C\x22id\x22:\x22\x31\x22\x2C\x22method\x22:\x22Player.Stop\x22\x2C\x22params\x22:{\x22playerid\x22:1}}" | timeout 0.2 nc osmc.local 9090
+	bindsym XF86AudioPrev exec echo -e "{\x22jsonrpc\x22:\x22\x32.0\x22\x2C\x22id\x22:\x22\x31\x22\x2C\x22method\x22:\x22Input.ExecuteAction\x22\x2C\x22params\x22:{\x22action\x22:\x22stepback\x22}}" | timeout 0.2 nc osmc.local 9090
+	bindsym XF86AudioNext exec echo -e "{\x22jsonrpc\x22:\x22\x32.0\x22\x2C\x22id\x22:\x22\x31\x22\x2C\x22method\x22:\x22Input.ExecuteAction\x22\x2C\x22params\x22:{\x22action\x22:\x22stepforward\x22}}" | timeout 0.2 nc osmc.local 9090
+
+	bindsym XF86AudioRaiseVolume exec echo -e "{\x22jsonrpc\x22:\x22\x32.0\x22\x2C\x22id\x22:\x22\x31\x22\x2C\x22method\x22:\x22Input.ExecuteAction\x22\x2C\x22params\x22:{\x22action\x22:\x22volumeup\x22}}" | timeout 0.2 nc osmc.local 9090
+	bindsym XF86AudioLowerVolume exec echo -e "{\x22jsonrpc\x22:\x22\x32.0\x22\x2C\x22id\x22:\x22\x31\x22\x2C\x22method\x22:\x22Input.ExecuteAction\x22\x2C\x22params\x22:{\x22action\x22:\x22volumedown\x22}}" | timeout 0.2 nc osmc.local 9090
+	bindsym XF86AudioMute exec echo -e "{\x22jsonrpc\x22:\x22\x32.0\x22\x2C\x22id\x22:\x22\x31\x22\x2C\x22method\x22:\x22Input.ExecuteAction\x22\x2C\x22params\x22:{\x22action\x22:\x22mute\x22}}" | timeout 0.2 nc osmc.local 9090
+
+        bindsym grave mode "default"
+        bindsym $mod+grave mode "default"
+}
+bindsym $mod+grave mode "MediaCenter"
+
+## run autostart commands
+exec_always --no-startup-id compton --config ~/.comptonrc -b
+exec_always --no-startup-id xrdb -merge ~/.Xresources
+exec_always --no-startup-id xrdb -merge ~/.Xdefaults
+#exec_always --no-startup-id feh --bg-scale ~/.wallpaper ~/.background
+#exec_always --no-startup-id xwinwrap -b -fs -sp -fs -nf -ov  -- xaos -root -autopilot -speed 0.25 -screenwidth 7440 -screenheight 1080 -antialiasing -windowid WID
+#exec_always --no-startup-id xset dpms 0 0 1500
+exec_always --no-startup-id xset -dpms
+#exec_always --no-startup-id xset s 1200
+exec_always --no-startup-id xset s off
+exec_always --no-startup-id xset m 64 0
+exec_always --no-startup-id xhost +
+exec --no-startup-id watch -n3600 feh --bg-scale https://source.unsplash.com/random/7680x1080
+#exec --no-startup-id udiskie
+#exec --no-startup-id fcitx
+exec --no-startup-id ckb -b
+exec --no-startup-id dunst
+#exec --no-startup-id unclutter -grab
+#exec --no-startup-id clipit -d
+
+## Start i3bar to display a workspace bar (plus the system information i3blocks
+## finds out, if available)
+bar {
+        id bar-0a # status
+        output $mon1a
+        status_command i3blocks
+        position top
+        workspace_buttons yes
+        tray_output $mon1a
+        font pango:monospace 8, pango:FontAwesome 8
+}
+bar {
+        id bar-0b # status
+        output $mon1b
+        status_command i3blocks
+        position top
+        workspace_buttons yes
+        tray_output $mon1b
+        font pango:monospace 8, pango:FontAwesome 8
+}
+## Easier this way since i3bar doesn't guarantee restarts anyway, and "onstart=lower" isn't blocked by the blank i3bar
+
+bar {
+        id bar-1a # off-center
+        output $mon2a
+        position top
+        status_command i3blocks
+        workspace_buttons yes
+        tray_output none
+        font pango:monospace 8, pango:FontAwesome 8
+}
+bar {
+        id bar-1b # off-center
+        output $mon2b
+        position top
+        status_command i3blocks
+        workspace_buttons yes
+        tray_output none
+        font pango:monospace 8, pango:FontAwesome 8
+}
+
+bar {
+        id bar-2a # left
+        output $mon0a
+        position top
+        status_command i3blocks
+        workspace_buttons yes
+        tray_output none
+        font pango:monospace 8, pango:FontAwesome 8
+}
+bar {
+        id bar-2b # left
+        output $mon0b
+        position top
+        status_command i3blocks
+        workspace_buttons yes
+        tray_output none
+        font pango:monospace 8, pango:FontAwesome 8
+}
+
+bar {
+        id bar-3 # right
+        output $mon3
+        position top
+        status_command i3blocks
+        workspace_buttons yes
+        tray_output none
+        font pango:monospace 8, pango:FontAwesome 8
+}
+
+## Volume mods
+set $amixer amixer -D pulse sset Master
+set $notify dunstify -a Volume -r 99
+set $sound paplay -d 0 --property=media.role=event /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga
+set $volm /usr/share/icons/gnome/16x16/status/audio-volume-high.png
+set $mute /usr/share/icons/gnome/16x16/status/audio-volume-muted.png
+bindsym XF86AudioRaiseVolume exec $amixer 5%+ | awk '/^  Front Left/{if($$6=="[off]"){print "-i $mute -c -MUTE-\\ "$$5}else{print "-i $volm -c "$$5} }' | tr -d "[]" | xargs $notify {}; exec $sound
+bindsym XF86AudioLowerVolume exec $amixer 5%- | awk '/^  Front Left/{if($$6=="[off]"){print "-i $mute -c -MUTE-\\ "$$5}else{print "-i $volm -c "$$5} }' | tr -d "[]" | xargs $notify {}; exec $sound
+bindsym XF86AudioMute exec $amixer toggle     | awk '/^  Front Left/{if($$6=="[off]"){print "-i $mute -c -MUTE-\\ "$$5}else{print "-i $volm -c "$$5} }' | tr -d "[]" | xargs $notify {}; exec $sound
+bindsym Mod4+Mod1+minus exec amixer -D pulse sget Master | awk '/^  Front Left/{print "Currently at "$$5}' | tr -d '[]' | xargs -I{} $notify -i $volm {}; exec $sound
+bindsym Mod4+Mod1+1 exec $amixer 10%;    exec $notify -i $volm "Set to 10%"; exec $sound
+bindsym Mod4+Mod1+2 exec $amixer 20%;    exec $notify -i $volm "Set to 20%"; exec $sound
+bindsym Mod4+Mod1+3 exec $amixer 30%;    exec $notify -i $volm "Set to 30%"; exec $sound
+bindsym Mod4+Mod1+4 exec $amixer 40%;    exec $notify -i $volm "Set to 40%"; exec $sound
+bindsym Mod4+Mod1+5 exec $amixer 50%;    exec $notify -i $volm "Set to 50%"; exec $sound
+bindsym Mod4+Mod1+6 exec $amixer 60%;    exec $notify -i $volm "Set to 60%"; exec $sound
+bindsym Mod4+Mod1+7 exec $amixer 70%;    exec $notify -i $volm "Set to 70%"; exec $sound
+bindsym Mod4+Mod1+8 exec $amixer 80%;    exec $notify -i $volm "Set to 80%"; exec $sound
+bindsym Mod4+Mod1+9 exec $amixer 90%;    exec $notify -i $volm "Set to 90%"; exec $sound
+bindsym Mod4+Mod1+0 exec $amixer toggle; exec $notify -i $mute "(un-)muted"; exec $sound
+bindsym Mod4+Mod1+grave exec pavucontrol                                   ; exec $sound
+
+## Fn keys
+bindsym XF86Sleep exec systemctl suspend; exec xset dpms force off
+bindsym XF86HomePage exec chromium
+bindsym XF86ScreenSaver exec i3lock -d -c 000000 -p win -i ~/.lock
+bindsym Pause exec xset dpms force off
+
+## Media controls
+bindsym XF86AudioPlay exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
+bindsym XF86AudioStop exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Stop
+bindsym XF86AudioNext exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
+bindsym XF86AudioPrev exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
