@@ -1,2 +1,0 @@
-;;; -*- no-byte-compile: t -*-
-(define-package "tango-2" "1.0.0" "Tango 2 color theme for GNU Emacs 24" 'nil)
