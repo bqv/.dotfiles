@@ -1,4 +1,4 @@
-E:GOPATH = ~/Dropbox/Personal/devel/go
+E:GOPATH = ~/go
 paths = [
   ~/bin
   $E:GOPATH/bin

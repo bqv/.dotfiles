@@ -1,4 +1,4 @@
-E:GOPATH = ~/Dropbox/Personal/devel/go
+E:GOPATH = ~/go
 paths = [
   ~/bin
   $E:GOPATH/bin
@@ -60,11 +60,61 @@ chain:glyph[git-ahead]  = "⬆ "
 chain:glyph[git-staged] = "✔ "
  
 edit:prompt-stale-transform = { each [x]{ styled $x[text] "gray" } }
- 
 edit:-prompt-eagerness = 10
+edit:rprompt-persistent = $true
 
-edit:prompt = { tilde-abbr $pwd; put '❱ ' }
-edit:rprompt = (constantly (edit:styled (whoami)✸(hostname) inverse))
+row = 0
+fn coloured [idx s]{
+    if (eq $idx 0) {
+        put (styled $s red);
+    } elif (eq $idx 1) {
+        put (styled $s green);
+    } elif (eq $idx 2) {
+        put (styled $s yellow);
+    } elif (eq $idx 3) {
+        put (styled $s blue);
+    } elif (eq $idx 4) {
+        put (styled $s magenta);
+    } elif (eq $idx 5) {
+        put (styled $s cyan);
+    } elif (eq $idx 6) {
+        put (styled $s white);
+    } else {
+        put (styled $s gray);
+    }
+}
+fn rainbow [s]{
+    n = (% $row 7);
+    put (coloured $n $s);
+}
+fn randcolor [s]{
+    try {
+        pane = $E:TMUX_PANE[1];
+        put (coloured $pane $s);
+    } except e {
+        put (styled $s gray);
+    }
+}
+
+pane = (randcolor "@")
+edit:prompt = {
+    row = (+ $row 1);
+    put (rainbow ":");
+    put (edit:styled " [" white);
+    put (edit:styled (whoami) white);
+    put $pane;
+    put (edit:styled (hostname) white);
+    put (edit:styled ":" gray);
+    put (edit:styled (tilde-abbr $pwd) gray);
+    put (edit:styled "]" white);
+    put (edit:styled "0" gray);
+    put (edit:styled "# " white);
+}
+edit:rprompt = {
+    put (edit:styled "(" white);
+    put (edit:styled (date +"%m-%d %H:%M") white);
+    put (edit:styled ")" white);
+}
  
 use github.com/zzamboni/elvish-modules/long-running-notifications
  
