@@ -24,6 +24,7 @@ set -g status-left-length 20
 set -g status-right '#[fg=green][#[fg=blue]%Y-%m-%d #[fg=white]%H:%M#[default]  #{=21:pane_title}#[fg=green]]'
 set -g history-limit 32768
 set -g terminal-overrides 'xterm*:smcup@:rmcup@'
+set -g aggressive-resize on
 set-window-option -g window-status-format '#[fg=cyan,dim]#I#[fg=white]|#[default]#W#[fg=grey,dim]#F'
 set-window-option -g window-status-current-format '#[fg=magenta,bold]#I#[default]|#[fg=colour230,bold]#W#[fg=dim]#F'
 bind C-p run-shell "tmux set-buffer \"$(xclip -o)\"; tmux paste-buffer"
