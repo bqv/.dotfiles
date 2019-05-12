@@ -1,6 +1,6 @@
 ;;; init.el --- user-init-file                    -*- lexical-binding: t -*-
-;;; Early birds
-(progn ;     startup
+
+(progn ; startup
   (defvar before-user-init-time (current-time)
     "Value of `current-time' when Emacs begins loading `user-init-file'.")
   (message "Loading Emacs...done (%.3fs)"
@@ -11,6 +11,7 @@
   (message "Loading %s..." user-init-file)
   (setq package-enable-at-startup nil)
   ;; (package-initialize)
+  (setq inhibit-startup-message t)
   (setq inhibit-startup-buffer-menu t)
   (setq inhibit-startup-screen t)
   (setq inhibit-startup-echo-area-message "locutus")
@@ -19,18 +20,26 @@
   (setq load-prefer-newer t)
   (scroll-bar-mode 0)
   (tool-bar-mode 0)
-  (menu-bar-mode 0))
+  (menu-bar-mode 1))
 
-(progn ;    `borg'
-  (add-to-list 'load-path (expand-file-name "lib/borg" user-emacs-directory))
-  (require  'borg)
-  (borg-initialize))
-
-(progn ;    `use-package'
-  (require  'use-package)
+(progn ; straight
+  (defvar bootstrap-version)
+  (let ((bootstrap-file
+          (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+        (bootstrap-version 5))
+    (unless (file-exists-p bootstrap-file)
+      (with-current-buffer
+        (url-retrieve-synchronously
+          "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+          'silent 'inhibit-cookies)
+        (goto-char (point-max))
+        (eval-print-last-sexp)))
+    (load bootstrap-file nil 'nomessage))
+  (straight-use-package 'use-package)
   (setq use-package-verbose t))
 
 (use-package auto-compile
+  :straight t
   :demand t
   :config
   (auto-compile-on-load-mode)
@@ -41,11 +50,6 @@
   (setq auto-compile-toggle-deletes-nonlib-dest   t)
   (setq auto-compile-update-autoloads             t))
 
-(use-package epkg
-  :defer t
-  :init (setq epkg-repository
-              (expand-file-name "var/epkgs/" user-emacs-directory)))
-
 (use-package custom
   :no-require t
   :config
@@ -54,96 +58,35 @@
     (load custom-file)))
 
 (use-package server
+  :straight t
   :config (or (server-running-p) (server-mode)))
 
-(progn ;     startup
-  (message "Loading early birds...done (%.3fs)"
+(progn ; startup
+  (message "Basic init...done (%.3fs)"
            (float-time (time-subtract (current-time)
                                       before-user-init-time))))
 
-;;; Long tail
+(defconst user-init-dir
+          (cond ((boundp 'user-emacs-directory)
+                 user-emacs-directory)
+                ((boundp 'user-init-directory)
+                 user-init-directory)
+                (t "~/.emacs.d/")))
 
-(use-package dash
-  :config (dash-enable-font-lock))
 
-(use-package diff-hl
-  :config
-  (setq diff-hl-draw-borders nil)
-  (global-diff-hl-mode)
-  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh t))
+(defun load-user-file (file)
+  (interactive "f")
+  "Load a file in current user's configuration directory"
+  (load-file (expand-file-name file user-init-dir)))
 
-(use-package dired
-  :defer t
-  :config (setq dired-listing-switches "-alh"))
+(progn ; config
+  (let (start-time (current-time))
+    (load-user-file "main.el")
+    (message "* finished in %.3fs"
+             (float-time (time-subtract (current-time)
+                                        start-time)))))
 
-(use-package eldoc
-  :when (version< "25" emacs-version)
-  :config (global-eldoc-mode))
-
-(use-package help
-  :defer t
-  :config (temp-buffer-resize-mode))
-
-(progn ;    `isearch'
-  (setq isearch-allow-scroll t))
-
-(use-package lisp-mode
-  :config
-  (add-hook 'emacs-lisp-mode-hook 'outline-minor-mode)
-  (add-hook 'emacs-lisp-mode-hook 'reveal-mode)
-  (defun indent-spaces-mode ()
-    (setq indent-tabs-mode nil))
-  (add-hook 'lisp-interaction-mode-hook #'indent-spaces-mode))
-
-(use-package magit
-  :defer t
-  :bind (("C-x g"   . magit-status)
-         ("C-x M-g" . magit-dispatch))
-  :config
-  (magit-add-section-hook 'magit-status-sections-hook
-                          'magit-insert-modules
-                          'magit-insert-stashes
-                          'append))
-
-(use-package man
-  :defer t
-  :config (setq Man-width 80))
-
-(use-package paren
-  :config (show-paren-mode))
-
-(use-package prog-mode
-  :config (global-prettify-symbols-mode)
-  (defun indicate-buffer-boundaries-left ()
-    (setq indicate-buffer-boundaries 'left))
-  (add-hook 'prog-mode-hook #'indicate-buffer-boundaries-left))
-
-(use-package recentf
-  :demand t
-  :config (add-to-list 'recentf-exclude "^/\\(?:ssh\\|su\\|sudo\\)?:"))
-
-(use-package savehist
-  :config (savehist-mode))
-
-(use-package saveplace
-  :when (version< "25" emacs-version)
-  :config (save-place-mode))
-
-(use-package simple
-  :config (column-number-mode))
-
-(progn ;    `text-mode'
-  (add-hook 'text-mode-hook #'indicate-buffer-boundaries-left))
-
-(use-package tramp
-  :defer t
-  :config
-  (add-to-list 'tramp-default-proxies-alist '(nil "\\`root\\'" "/ssh:%h:"))
-  (add-to-list 'tramp-default-proxies-alist '("localhost" nil nil))
-  (add-to-list 'tramp-default-proxies-alist
-               (list (regexp-quote (system-name)) nil nil)))
-
-(progn ;     startup
+(progn ; startup
   (message "Loading %s...done (%.3fs)" user-init-file
            (float-time (time-subtract (current-time)
                                       before-user-init-time)))
@@ -155,13 +98,6 @@
                                           before-user-init-time))))
             t))
 
-(progn ;     personalize
-  (let ((file (expand-file-name (concat (user-real-login-name) ".el")
-                                user-emacs-directory)))
-    (when (file-exists-p file)
-      (load file))))
-
 ;; Local Variables:
 ;; indent-tabs-mode: nil
 ;; End:
-;;; init.el ends here

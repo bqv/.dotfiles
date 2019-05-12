@@ -1,7 +1,8 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_cnt =6
 let g:netrw_dirhist_1='/home/bao/old/.zsh/cache'
 let g:netrw_dirhist_2='/var/abs/core/linux'
 let g:netrw_dirhist_3='/usr/portage/profiles/default/linux/amd64/17.0/systemd'
 let g:netrw_dirhist_4='/lib64/udev/rules.d'
 let g:netrw_dirhist_5='/usr/local/src/peerfeed/server/app/http/acme'
+let g:netrw_dirhist_6='/home/bao/.emacs.d'
