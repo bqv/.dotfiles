@@ -103,7 +103,7 @@ use github.com/iwoloschin/elvish-packages/update
 update:curl-timeout = 3
 update:check-commit &verbose
 
-alias:new ls e:ls --color=auto
+alias:new ls e:exa --color=auto
 alias:new grep e:grep --color=auto
 alias:new egrep e:egrep --color=auto
 alias:new stat e:stat

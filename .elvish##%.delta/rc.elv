@@ -152,6 +152,33 @@ use github.com/muesli/elvish-libs/git
 use github.com/iwoloschin/elvish-packages/update
 update:curl-timeout = 3
 update:check-commit &verbose
+
+alias:new ls e:exa --color=auto
+alias:new grep e:grep --color=auto
+alias:new egrep e:egrep --color=auto
+alias:new stat e:stat
+alias:new diff e:diff -s
+alias:new sstart e:sudo systemctl start
+alias:new sstop e:sudo systemctl stop
+alias:new srestart e:sudo systemctl restart
+alias:new sstatus e:sudo systemctl status
+alias:new senable e:sudo systemctl enable
+alias:new sdisable e:sudo systemctl disable
+alias:new smask e:sudo systemctl mask
+alias:new sunmask e:sudo systemctl unmask
+alias:new sreload e:sudo systemctl daemon-reload
+alias:new ustart e:systemctl start --user
+alias:new ustop e:systemctl stop --user
+alias:new urestart e:systemctl restart --user
+alias:new ustatus e:systemctl status --user
+alias:new uenable e:systemctl enable --user
+alias:new udisable e:systemctl disable --user
+alias:new umask e:systemctl mask --user
+alias:new uunmask e:systemctl unmask --user
+alias:new ureload e:systemctl daemon-reload --user
  
 -exports- = (alias:export)
+
+fortune -as linux linuxcookie paradoxum computers science definitions | tee -a /tmp/fortune.log | cowsay
+echo -e '\n' >> /tmp/fortune.log
  

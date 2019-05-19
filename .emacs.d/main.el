@@ -1,40 +1,48 @@
 ;;; main.el --- config-main                    -*- lexical-binding: t -*-
+;;; Commentary:
 
-(let ((start-time (current-time)))
-  (progn ; UI
-    (when (fboundp 'windmove-default-keybindings)
-      (windmove-default-keybindings))
-    (defalias 'yes-or-no-p 'y-or-n-p))
-  (progn ; Editor
-    (show-paren-mode 1)
-    (setq show-paren-delay 0)
-    (column-number-mode 1)
-    (setq-default indent-tabs-mode nil))
-  (message "*:pre finished in %.3fs"
-           (float-time (time-subtract (current-time)
-                                      start-time))))
+;;; Code:
+(use-package custom
+  :no-require t
+  :config
+  (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+  (when (file-exists-p custom-file)
+    (load custom-file)))
 
-(defun config-init (name)
-  (progn
-    (let ((start-time (current-time))
-          (config-name (symbol-name name)))
-      (with-demoted-errors "Configuration failure: %s"
-        (load-user-file (concat config-name ".el")))
-      (message (concat "*:" config-name " finished in %.3fs")
-               (float-time (time-subtract (current-time)
-                                          start-time))))))
+(use-package server
+  :straight t
+  :config
+  (if (server-running-p)
+    (progn
+      (with-demoted-errors "Server Error: %S"
+                           (if (daemonp)
+                             (error "Abort: Another running Emacs server detected")
+                             (let ((args (append '("emacsclient" "-a" "\"\"" "-c")
+                                                 (cdr command-line-args))))
+                               (make-frame-invisible (selected-frame) t)
+                               (shell-command (substring (format "%S" args) 1 -1)))))
+      (kill-emacs))
+    (server-start)))
 
+(config-init 'wm)
 (config-init 'evil)
-(config-init 'ido)
+(config-init 'helm)
 (config-init 'smex)
+(config-init 'avy)
+(config-init 'syntax)
 (config-init 'theme)
 (config-init 'shell)
-(config-init 'racket)
 (config-init 'latex)
 (config-init 'org)
 (config-init 'highlight)
 (config-init 'flymake)
-;(config-init 'misc)
+(config-init 'bufmgmt)
+(config-init 'magit)
+(config-init 'vcs)
+(config-segment 'lang
+    (config-init 'rust)
+    (config-init 'racket))
+(config-init 'misc)
 
 ;; Local Variables:
 ;; indent-tabs-mode: nil
