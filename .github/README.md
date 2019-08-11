@@ -1,7 +1,7 @@
 My .dotfiles
 ========
 
-Specifically, this repo includes things like my dotfiles, vim configuration, i3 and conky setup, emacs scripts, and a selection of ~/bin scripts that I can feasibly publish.
+Specifically, this repo includes things like my dotfiles, vim configuration, former i3 and conky setup, current exwm setup, other emacs scripts, and a selection of ~/bin scripts that I can feasibly publish.
 
 You are free to use any of these in any way, shape or form you wish, but do bear in mind that I have made negligible effort to make these remotely coherent or even functional as they stand, so good luck...
 
