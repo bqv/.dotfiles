@@ -1,6 +1,6 @@
 ;;; flymake.el --- config-flymake                    -*- lexical-binding: t -*-
 
-(use-package flymake
+(config-package flymake
              :straight t)
 
 ;; Local Variables:

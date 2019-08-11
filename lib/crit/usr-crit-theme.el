@@ -1,12 +1,12 @@
 ;;; theme.el --- config-theme                    -*- lexical-binding: t -*-
 
-(use-package solarized-theme
+(config-package solarized-theme
              :straight t)
 
-(use-package zenburn-theme
+(config-package zenburn-theme
              :straight t)
 
-(use-package doom-themes
+(config-package doom-themes
              :straight t)
 
 (if window-system

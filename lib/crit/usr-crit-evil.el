@@ -1,11 +1,15 @@
 ;;; evil.el --- config-evil                    -*- lexical-binding: t -*-
 
-(use-package evil
+(config-package evil
              :straight t
              :diminish undo-tree-mode
              :init
              (setq evil-default-cursor t)
+             ;(setq evil-default-state 'emacs)
              :config
+             ;(advice-add 'global-set-key :after
+             ;            (lambda (old-fn &rest args)
+             ;                     (apply 'evil-global-set-key args)))
              (evil-mode 1)
              (define-key evil-insert-state-map (kbd "C-e") 'move-end-of-line)
              (define-key evil-insert-state-map (kbd "C-k") 'kill-line)

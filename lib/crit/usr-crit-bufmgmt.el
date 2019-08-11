@@ -1,19 +1,35 @@
 ;;; bufmgmt.el --- config-bufmgmt                    -*- lexical-binding: t -*-
 
 ; TODO: Use workgroups
+; ...or don't? exwm and desktop.el are kinda good enough
 
-(use-package persp-mode
+(config-package persp-mode
   :straight t
+  :init
+  (defun fixme-errors (old-fn &rest args)
+    (with-demoted-errors "Fixme: %S"
+      (apply old-fn args)))
   :config
   (setq persp-autokill-buffer-on-remove 'kill-weak
         persp-auto-save-fname "autosave"
         persp-auto-save-opt 1
         persp-nil-hidden t
         persp-nil-name "nil"
-        persp-save-dir ".emacs.d/workspaces/")
-  (persp-mode t))
+        persp-save-dir "~/.emacs.d/workspaces/"
+        persp-init-frame-behaviour nil)
+  (advice-add #'window-state-put :around #'fixme-errors)
+  (advice-add #'persp-add-buffer :around #'fixme-errors)
+  ;ehh maybe not;(persp-mode t)
+  )
 
-(use-package neotree
+(defun advice-list (sym)
+  (let ((l nil))
+    (advice-mapc (lambda (a &rest ignored)
+                   (push a l))
+                 sym)
+    l))
+
+(config-package neotree
   :straight t
   :after (persp-mode projectile)
   :config
@@ -32,9 +48,9 @@
   :hook
   (persp-switch . local/persp-neo))
 
-;(use-package persp-projectile
-;  :straight t
-;  :after (projectile persp-mode))
+(config-package persp-projectile
+  :straight t
+  :after (projectile persp-mode))
 
 ;; Local Variables:
 ;; indent-tabs-mode: nil

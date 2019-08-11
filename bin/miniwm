@@ -1,6 +1,0 @@
-#!/bin/sh
-
-export LC_ALL="en_GB.UTF-8"
-RES=$(xrandr -q | awk -F'current' -F',' 'NR==1 {gsub("( |current)","");print $2}')
-
-startx /usr/bin/openbox-kde-session -- /usr/bin/Xephyr :9 -ac -screen $RES

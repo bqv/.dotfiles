@@ -1,4 +1,4 @@
-E:GOPATH = ~/go
+E:GOPATH = ~/src/go
 paths = [
   ~/bin
   $E:GOPATH/bin

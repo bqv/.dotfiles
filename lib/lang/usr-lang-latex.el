@@ -1,21 +1,21 @@
 ;;; latex.el --- config-latex                    -*- lexical-binding: t -*-
 
-(use-package auctex-lua
+(config-package auctex-lua
              :straight t
              :after (auctex))
 
-(use-package auctex-latexmk
+(config-package auctex-latexmk
              :straight t
              :after (auctex))
 
-(use-package auctex
+(config-package auctex
              :straight t
              :defer t
              :after (tex latex)
              :config
              (TeX-global-PDF-mode t))
 
-(use-package latex
+(config-package latex
              :mode ("\\.tex\\'" . latex-mode)
              :config
              (add-hook 'doc-view-mode-hook 'auto-revert-mode)
@@ -30,7 +30,7 @@
                            TeX-PDF-mode t
                            Tex-engine 'lualatex))
 
-(use-package doc-view
+(config-package doc-view
              :defer t
              :config
              (add-hook 'doc-view-mode-hook
@@ -56,15 +56,15 @@
                        t)
              )
 
-(use-package latex-preview-pane
+(config-package latex-preview-pane
              :straight t
              :after (tex latex))
 
-(use-package latex-pretty-symbols
+(config-package latex-pretty-symbols
              :straight t
              :after (tex latex))
 
-(use-package latex-extra
+(config-package latex-extra
              :straight t
              :after (tex latex))
 

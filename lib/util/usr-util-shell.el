@@ -3,8 +3,10 @@
 (defun zsh ()
   (interactive)
   (ansi-term "/usr/bin/zsh"))
+(setq explicit-shell-file-name "/bin/bash")
+(setq shell-file-name "/bin/bash")
 
-(use-package xterm-color
+(config-package xterm-color
   :straight t
   :config
   (setq comint-output-filter-functions
@@ -38,7 +40,7 @@
                  (funcall 'compilation-filter proc
                           (xterm-color-filter string))))))))
 
-(use-package eterm-256color
+(config-package eterm-256color
   :straight t
   :config
   (add-hook 'term-mode-hook #'eterm-256color-mode))
