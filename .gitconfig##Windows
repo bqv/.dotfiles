@@ -1,0 +1,43 @@
+[user]
+        name = Tony Olagbaiye
+        email = me@fron.io
+[push]
+        default = simple
+[pull]
+        rebase = true
+[commit]
+        gpgsign = true
+[gpg]
+        program = /usr/bin/gpg
+[credential]
+        helper = store
+
+[url "git@github.com:"]
+        insteadOf = "gh:"
+        pushInsteadOf = "github:"
+        pushInsteadOf = "git://github.com/"
+[url "git://github.com/"]
+        insteadOf = "github:"
+[url "git@gist.github.com:"]
+        insteadOf = "gst:"
+        pushInsteadOf = "gist:"
+        pushInsteadOf = "git://gist.github.com/"
+[url "git://gist.github.com/"]
+        insteadOf = "gist:"
+[url "git@heroku.com:"]
+        insteadOf = "heroku:"
+[github]
+        user = bqv
+        oauth-token = 6e57e5dbefcb8a7dfe4e67e3481c06bd8c035fa5
+[core]
+        excludesfile = /home/bao/.gitignore
+        attributesfile = /home/bao/.gitattributes
+[filter "spacify"]
+        clean = expand --tabs=4 --initial
+        requirwd
+[filter "trim"]
+        clean = git-stripspace
+        required
+[filter "spacify_trim"]
+        clean = sh -c "expand --tabs=4 --initial %f | git-stripspace"
+        required

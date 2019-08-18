@@ -17,6 +17,15 @@
   (setq company-tooltip-align-annotations t
         company-minimum-prefix-length 1))
 
+(config-package company-box
+  :straight t
+  :hook (company-mode . company-box-mode))
+
+(config-package company-lsp
+  :straight t
+  :config
+  (push 'company-lsp company-backends))
+
 (config-package lsp-mode
   :straight t
   :commands lsp

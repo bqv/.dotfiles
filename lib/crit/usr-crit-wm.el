@@ -186,24 +186,25 @@
 
     (defun bqv/exwm-screenshot-all ()
       (interactive)
-      (bqv/exwm-screenshot-all))
+      (bqv/exwm-screenshot))
 
     (defun bqv/exwm-screenshot-current ()
       (interactive)
-      (bqv/exwm-screenshot-all "-u"))
+      (bqv/exwm-screenshot-current)
+      (bqv/exwm-screenshot "-u"))
 
     (defun bqv/exwm-screenshot-region ()
       (interactive)
-      (bqv/exwm-screenshot-all "-s"))
+      (bqv/exwm-screenshot "-s"))
 
+    (setenv "PATH" (concat (expand-file-name "~/bin") ":" (getenv "PATH"))) ;; TODO: Remove this hack
     (defun executables-list ()
       "Returns a list of all files available in the directories of the $PATH variable."
-      (remove-if-not #'file-executable-p
-                     (remove-if #'file-directory-p
-                                (apply #'append
-                                       (mapcar (lambda (p) (directory-files p t))
-                                               (remove-if-not #'file-exists-p
-                                                              (split-string (getenv "PATH") ":")))))))
+      (let ((valid-path (remove-if-not #'file-exists-p (split-string (getenv "PATH") ":"))))
+        (remove-if-not #'file-executable-p
+                       (remove-if #'file-directory-p
+                                  (apply #'append
+                                         (mapcar (lambda (p) (directory-files p t)) valid-path))))))
 
     (defun bqv/exwm-svc-start (name)
       "Start NAME unless already started. NAME is a key of `bqv/exwm-services'."
@@ -232,7 +233,9 @@ NAME is a key of `bqv/exwm-applications'."
       "Launch a shell command CMD."
       (interactive (list (completing-read "Command" (mapcar #'file-name-base (executables-list)))))
       (let* ((executable (car (split-string cmd " ")))
-             (buffer-name (concat "*" executable "*")))
+             (buffer-name (concat "*" executable "*"))
+             (canonical-name (assoc executable (executables-list)
+                                    '(lambda (exe) (= (file-name-base exe) )))))
         (assert (not (null executable)))
         (bqv/exwm-launch executable "sh" "-c" cmd)))
 

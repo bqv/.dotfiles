@@ -52,6 +52,22 @@
   :straight t
   :after (projectile persp-mode))
 
+(config-package window-purpose
+  :straight t
+  :config
+  (add-to-list 'purpose-user-mode-purposes '(weechat-mode . chat))
+  (add-to-list 'purpose-user-name-purposes '("qutebrowser" . web))
+  (add-to-list 'purpose-user-regexp-purposes '("^termite.*" . terminal))
+  (setq purpose-use-default-configuration t)
+  (purpose-compile-user-configuration)
+  (purpose-mode))
+
+(config-package ivy-purpose
+  :straight t
+  :after (window-purpose)
+  :config
+  (ivy-purpose-setup))
+
 ;; Local Variables:
 ;; indent-tabs-mode: nil
 ;; End:

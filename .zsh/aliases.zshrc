@@ -1,5 +1,3 @@
-#!/usr/bin/zsh
-
 alias slrn='slrn -n'
 alias man='LC_ALL=C LANG=C man'
 alias f="finger"
@@ -16,8 +14,6 @@ alias m8='please'
 alias sorry='please'
 alias fucking='sudo'
 alias cd..="cd .."
-#alias cp="rsync -az --info=progress2"
-#alias dd="ddrescue"
 alias grep="grep --color=auto"
 alias egrep="egrep --color=auto"
 alias stat="/usr/bin/stat"
@@ -29,22 +25,4 @@ alias feh="feh -F"
 alias curl="curl -L"
 alias crs="clearresetsource"
 alias unblock="sudo hostsblock-urlcheck"
-
-#alias pacman="aura"
-#alias aura="sudo aura"
 alias pm="pacsearch"
-alias pi="sudo pacman -S"
-alias pa="sudo pacman -A"
-alias pr="sudo pacman -Rcsu"
-alias po="sudo pacman -Qo"
-alias pl="sudo pacman -Ql"
-
-alias sstart="sudo systemctl start"
-alias sstop="sudo systemctl stop"
-alias srestart="sudo systemctl restart"
-alias sstatus="sudo systemctl status"
-alias senable="sudo systemctl enable"
-alias sdisable="sudo systemctl disable"
-alias smask="sudo systemctl mask"
-alias sunmask="sudo systemctl unmask"
-alias sreload="sudo systemctl daemon-reload"

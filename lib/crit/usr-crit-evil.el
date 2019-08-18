@@ -5,7 +5,10 @@
              :diminish undo-tree-mode
              :init
              (setq evil-default-cursor t)
-             ;(setq evil-default-state 'emacs)
+             (evil-set-initial-state 'weechat-mode 'emacs)
+             (evil-set-initial-state 'exwm-mode 'emacs)
+             (evil-set-initial-state 'eshell-mode 'emacs)
+             (evil-set-initial-state 'term-mode 'emacs)
              :config
              ;(advice-add 'global-set-key :after
              ;            (lambda (old-fn &rest args)

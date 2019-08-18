@@ -1,6 +1,6 @@
 [user]
         name = Tony Olagbaiye
-        email = frony0@gmail.com
+        email = me@fron.io
 [push]
         default = simple
 [commit]
@@ -32,7 +32,7 @@
         attributesfile = /home/bao/.gitattributes
 [filter "spacify"]
         clean = expand --tabs=4 --initial
-        requirwd
+        required
 [filter "trim"]
         clean = git-stripspace
         required
