@@ -29,7 +29,7 @@ else
     PR_RANDOM=$PR_GREY
 fi
 PR_NO_COLOR="%{$terminfo[sgr0]%}"
-function precmd() {
+function old_precmd() {
     RET=$?
     if [ $RET != 0 ]; then
         PR_RET=${cycle[$((($RET-1)%6+1))]}
@@ -46,11 +46,11 @@ function precmd() {
 
 LC_ALL='en_GB.UTF-8'
 LANG='en_GB.UTF-8'
-#LC_ALL='ja_JP.UTF-8'
-#LANG='ja_JP.UTF-8'
 LC_CTYPE=C
 
-source <(dircolors ~/.dir_colors)
+if [ -f "~/.dir_colors" ]; then
+    source <(dircolors ~/.dir_colors)
+fi
 
 if [ $SSH_TTY ]; then
   MUTT_EDITOR=vim

@@ -8,6 +8,8 @@ if [ -z "$EMACS" ]; then
         [ -z "$WINDOW" ] && exec screen -xRR
     elif [ -n "$SSH_CONNECTION" ]; then             # If we're in SSH
         [ -z "$TMUX" ] && exec tmux new -A -s ssh-$USER
+    elif [ -n "$WINDIR" ]; then                     # If we're in WIN
+        [ -z "$TMUX" ] && exec tmux new -A -s $MSYSTEM
     else
         tmux ls
 	read -n

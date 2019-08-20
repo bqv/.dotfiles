@@ -5,6 +5,10 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+if [ -x "$(command -v zsh)" ]; then
+    #exec zsh $@
+fi
+
 HISTSIZE= 
 HISTFILESIZE=
 

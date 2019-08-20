@@ -1,0 +1,29 @@
+set-option -g prefix C-q
+unbind-key C-b
+bind-key q send-prefix
+bind-key C-q last-window
+bind-key \; command-prompt "new-window '%%'"
+set -g base-index 0
+#set-option -g mouse-select-pane on
+set-option -g status-keys vi
+set-option -g display-time 3000
+setw -g mode-keys vi
+#setw -g mode-mouse on
+setw -g monitor-activity on
+setw -g automatic-rename on
+#set -g status-utf8 on
+set -g set-titles on
+set -g set-titles-string "#T"
+set -g default-terminal "screen-256color"
+set -g status-bg black
+set -g status-fg white
+set -g status-justify centre
+set -g status-left '#[fg=green][#[fg=cyan]%S#[fg=green]]'
+set -g status-left-length 20
+set -g status-right '#[fg=green][#[fg=blue]%Y-%m-%d #[fg=white]%H:%M#[default]  #{=21:pane_title}#[fg=green]]'
+set -g history-limit 32768
+set -g terminal-overrides 'xterm*:smcup@:rmcup@'
+set-window-option -g window-status-format '#[fg=cyan,dim]#I#[fg=white]|#[default]#W#[fg=grey,dim]#F'
+set-window-option -g window-status-current-format '#[fg=magenta,bold]#I#[default]|#[fg=colour230,bold]#W#[fg=dim]#F'
+
+bind r source-file ~/.tmux.conf
